@@ -1,0 +1,1 @@
+/home/youssefkababe/Lab/GSTicket/app/views/tickets/show.blade.php
