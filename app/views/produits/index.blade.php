@@ -1,0 +1,1 @@
+/home/youssefkababe/Lab/GSTicket/app/views/produits/index.blade.php
