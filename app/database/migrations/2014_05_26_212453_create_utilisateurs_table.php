@@ -16,9 +16,11 @@ class CreateUtilisateursTable extends Migration {
 			$table->increments('id');
 			$table->string('nom');
 			$table->string('prenom');
-			$table->string('email');
-			$table->string('nomUtilisateur');
+			$table->string('email')->unique();
+			$table->string('nomUtilisateur')->unique();
 			$table->string('motDePasse');
+			$table->integer('role_id')->unsigned();
+			$table->foreign('role_id')->references('id')->on('roles');
 			$table->timestamps();
 		});
 	}
