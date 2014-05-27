@@ -17,9 +17,9 @@ class AddForeignKeysToTicketsTable extends Migration {
 			$table->integer('probleme_id')->unsigned();
 			$table->foreign('probleme_id')->references('id')->on('problemes');
 			$table->integer('utilisateur_id')->unsigned();
-			$table->foreign('utilisateur_id')->references('id')->on('utilisateurs');
+			$table->foreign('utilisateur_id')->references('id')->on('utilisateurs')->onDelete('cascade');
 			$table->integer('produit_id')->unsigned();
-			$table->foreign('produit_id')->references('id')->on('produits');
+			$table->foreign('produit_id')->references('id')->on('produits')->onDelete('cascade');
 		});
 	}
 

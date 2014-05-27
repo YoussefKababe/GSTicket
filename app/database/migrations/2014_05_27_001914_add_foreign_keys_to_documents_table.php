@@ -15,9 +15,9 @@ class AddForeignKeysToDocumentsTable extends Migration {
 		Schema::table('documents', function(Blueprint $table)
 		{
 			$table->integer('ticket_id')->unsigned();
-			$table->foreign('ticket_id')->references('id')->on('tickets');
+			$table->foreign('ticket_id')->references('id')->on('tickets')->onDelete('cascade');
 			$table->integer('reponse_id')->unsigned();
-			$table->foreign('reponse_id')->references('id')->on('reponses');
+			$table->foreign('reponse_id')->references('id')->on('reponses')->onDelete('cascade');
 		});
 	}
 

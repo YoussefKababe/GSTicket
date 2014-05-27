@@ -15,9 +15,9 @@ class AddForeignKeysToReponsesTable extends Migration {
 		Schema::table('reponses', function(Blueprint $table)
 		{
 			$table->integer('utilisateur_id')->unsigned();
-			$table->foreign('utilisateur_id')->references('id')->on('utilisateurs');
+			$table->foreign('utilisateur_id')->references('id')->on('utilisateurs')->onDelete('cascade');
 			$table->integer('ticket_id')->unsigned();
-			$table->foreign('ticket_id')->references('id')->on('tickets');
+			$table->foreign('ticket_id')->references('id')->on('tickets')->onDelete('cascade');
 		});
 	}
 
