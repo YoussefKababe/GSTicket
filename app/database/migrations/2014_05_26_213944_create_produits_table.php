@@ -16,8 +16,6 @@ class CreateProduitsTable extends Migration {
 			$table->increments('id');
 			$table->string('nomProduit')->unique();
 			$table->text('description');
-			$table->integer('utilisateur_id')->unsigned();
-			$table->foreign('utilisateur_id')->references('id')->on('utilisateurs');
 			$table->timestamps();
 		});
 	}

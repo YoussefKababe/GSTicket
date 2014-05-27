@@ -15,10 +15,6 @@ class CreateDocumentsTable extends Migration {
 		Schema::create('documents', function(Blueprint $table) {
 			$table->increments('id');
 			$table->string('nomDocument');
-			$table->integer('ticket_id')->unsigned();
-			$table->foreign('ticket_id')->references('id')->on('tickets');
-			$table->integer('reponse_id')->unsigned();
-			$table->foreign('reponse_id')->references('id')->on('reponses');
 			$table->timestamps();
 		});
 	}

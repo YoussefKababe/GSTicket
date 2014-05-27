@@ -15,10 +15,6 @@ class CreateReponsesTable extends Migration {
 		Schema::create('reponses', function(Blueprint $table) {
 			$table->increments('id');
 			$table->text('message');
-			$table->integer('utilisateur_id')->unsigned();
-			$table->foreign('utilisateur_id')->references('id')->on('utilisateurs');
-			$table->integer('ticket_id')->unsigned();
-			$table->foreign('ticket_id')->references('id')->on('tickets');
 			$table->timestamps();
 		});
 	}
