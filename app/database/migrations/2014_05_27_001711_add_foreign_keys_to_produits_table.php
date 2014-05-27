@@ -28,6 +28,7 @@ class AddForeignKeysToProduitsTable extends Migration {
 	{
 		Schema::table('produits', function(Blueprint $table)
 		{
+			$table->dropForeign('produits_utilisateur_id_foreign');
 			$table->dropColumn('utilisateur_id');
 		});
 	}

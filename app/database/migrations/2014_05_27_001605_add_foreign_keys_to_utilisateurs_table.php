@@ -28,6 +28,7 @@ class AddForeignKeysToUtilisateursTable extends Migration {
 	{
 		Schema::table('utilisateurs', function(Blueprint $table)
 		{
+			$table->dropForeign('utilisateurs_role_id_foreign');
 			$table->dropColumn('role_id');
 		});
 	}

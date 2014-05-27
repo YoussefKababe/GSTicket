@@ -30,6 +30,8 @@ class AddForeignKeysToReponsesTable extends Migration {
 	{
 		Schema::table('reponses', function(Blueprint $table)
 		{
+			$table->dropForeign('reponses_utilisateur_id_foreign');
+			$table->dropForeign('reponses_ticket_id_foreign');
 			$table->dropColumn('utilisateur_id', 'ticket_id');
 		});
 	}

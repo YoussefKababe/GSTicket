@@ -32,6 +32,9 @@ class AddForeignKeysToTicketsTable extends Migration {
 	{
 		Schema::table('tickets', function(Blueprint $table)
 		{
+			$table->dropForeign('tickets_probleme_id_foreign');
+			$table->dropForeign('tickets_utilisateur_id_foreign');
+			$table->dropForeign('tickets_produit_id_foreign');
 			$table->dropColumn('probleme_id', 'utilisateur_id', 'produit_id');
 		});
 	}

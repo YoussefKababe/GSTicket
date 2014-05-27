@@ -30,6 +30,8 @@ class AddForeignKeysToDocumentsTable extends Migration {
 	{
 		Schema::table('documents', function(Blueprint $table)
 		{
+			$table->dropForeign('documents_ticket_id_foreign');
+			$table->dropForeign('documents_reponse_id_foreign');
 			$table->dropColumn('ticket_id', 'reponse_id');
 		});
 	}
