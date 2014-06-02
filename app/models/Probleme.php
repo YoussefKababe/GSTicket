@@ -10,4 +10,9 @@ class Probleme extends \Eloquent {
 	// Don't forget to fill this array
 	protected $fillable = [];
 
+	public function tickets()
+	{
+		return $this->hasMany('Ticket');
+	}
+
 }

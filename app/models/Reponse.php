@@ -15,4 +15,14 @@ class Reponse extends \Eloquent {
 		return $this->belongsTo('Utilisateur');
 	}
 
+	public function ticket()
+	{
+		return $this->belongsTo('Ticket');
+	}
+
+	public function documents()
+	{
+		return $this->morphMany('Document', 'documentable');
+	}
+
 }

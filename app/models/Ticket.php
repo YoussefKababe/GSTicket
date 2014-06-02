@@ -15,4 +15,23 @@ class Ticket extends \Eloquent {
 		return $this->belongsTo('Utilisateur');
 	}
 
+	public function reponses()
+	{
+		return $this->hasMany('Reponse');
+	}
+
+	public function probleme()
+	{
+		return $this->belongsTo('Probleme');
+	}
+
+	public function produit()
+	{
+		return $this->belongsTo('Produit');
+	}
+
+	public function documents(){
+		return $this->morphMany('Document', 'documentable');
+	}
+
 }
