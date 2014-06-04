@@ -1,1 +1,3 @@
-/home/youssefkababe/Lab/GSTicket/app/views/utilisateurs/index.blade.php
+@foreach ($utilisateurs as $utilisateur)
+	<p>{{ $utilisateur->nomUtilisateur }}</p>
+@endforeach

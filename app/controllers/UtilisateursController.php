@@ -38,9 +38,12 @@ class UtilisateursController extends \BaseController {
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
 
-		Utilisateur::create($data);
+		$user = new Utilisateur;
+		$user->fill(Input::except('motDePasse', 'motDePasse_confirmation'));
+		$user->motDePasse = Hash::make(Input::get('motDePasse'));
+		$user->save();
 
-		return Redirect::route('utilisateurs.index');
+		return Redirect::route('users.index');
 	}
 
 	/**

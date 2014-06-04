@@ -15,3 +15,9 @@ Route::get('/', function()
 {
 	return View::make('hello');
 });
+
+Route::resource('users', 'UtilisateursController');
+
+Route::resource('sessions', 'SessionsController');
+
+Route::get('login', 'SessionsController@create');
