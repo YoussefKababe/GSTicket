@@ -21,7 +21,7 @@ class SessionsController extends \BaseController {
 	{
 		if (Auth::attempt(Input::only('nomUtilisateur', 'password')))
 		{
-	    return "right";
+	    return Redirect::action('HomeController@index');
 		}
 		return "Wrong";
 	}
@@ -32,9 +32,10 @@ class SessionsController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy()
 	{
-		//
+		Auth::logout();
+		return Redirect::route('sessions.login');
 	}
 
 }

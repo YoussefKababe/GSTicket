@@ -11,8 +11,9 @@ class ProduitsTableSeeder extends Seeder {
 
 		foreach(range(1, 10) as $index)
 		{
-			Produit::create([
-
+			Utilisateur::find(3)->produits()->create([
+				'nomProduit' => $faker->sentence($nbWords = 2),
+				'description' => $faker->sentence($nbWords = 6)
 			]);
 		}
 	}

@@ -9,10 +9,42 @@ class UtilisateursTableSeeder extends Seeder {
 	{
 		$faker = Faker::create();
 
+		Utilisateur::create([
+			'nom' => 'Kababe',
+			'prenom' => 'Youssef',
+			'email' => 'youssef.kbe@gmail.com',
+			'nomUtilisateur' => 'Youssef Kababe',
+			'motDePasse' => Hash::make('123456'),
+			'role_id' => '1'
+		]);
+
+		Utilisateur::create([
+			'nom' => 'Fahmi',
+			'prenom' => 'Salman',
+			'email' => 'salman.fahmi@gmail.com',
+			'nomUtilisateur' => 'Salman Fahmi',
+			'motDePasse' => Hash::make('123456'),
+			'role_id' => '1'
+		]);
+
 		foreach(range(1, 10) as $index)
 		{
 			Utilisateur::create([
+				'nom' => $faker->lastName,
+				'prenom' => $faker->firstName,
+				'email' => $faker->email,
+				'nomUtilisateur' => $faker->userName,
+				'motDePasse' => Hash::make('123456'),
+				'role_id' => '2'
+			]);
 
+			Utilisateur::create([
+				'nom' => $faker->lastName,
+				'prenom' => $faker->firstName,
+				'email' => $faker->email,
+				'nomUtilisateur' => $faker->userName,
+				'motDePasse' => Hash::make('123456'),
+				'role_id' => '3'
 			]);
 		}
 	}

@@ -8,7 +8,7 @@ class Ticket extends \Eloquent {
 	];
 
 	// Don't forget to fill this array
-	protected $fillable = [];
+	protected $fillable = ['sujet', 'message', 'priorite'];
 
 	public function utilisateur()
 	{
@@ -18,11 +18,6 @@ class Ticket extends \Eloquent {
 	public function reponses()
 	{
 		return $this->hasMany('Reponse');
-	}
-
-	public function probleme()
-	{
-		return $this->belongsTo('Probleme');
 	}
 
 	public function produit()

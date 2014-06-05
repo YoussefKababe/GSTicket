@@ -1,0 +1,1 @@
+Welcome {{ Auth::user()->nomUtilisateur }}! {{ link_to('logout', 'Logout') }}
