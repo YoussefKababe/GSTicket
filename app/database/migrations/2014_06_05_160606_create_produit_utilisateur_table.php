@@ -17,7 +17,8 @@ class CreateProduitUtilisateurTable extends Migration {
 			$table->increments('id');
 			$table->integer('produit_id')->unsigned();
 			$table->foreign('produit_id')->references('id')->on('produits');
-			$table->integer('utilisateur_id')->unsigned()->references('id')->on('utilisateurs');
+			$table->integer('utilisateur_id')->unsigned();
+			$table->foreign('utilisateur_id')->references('id')->on('utilisateurs');
 			$table->timestamps();
 		});
 	}
