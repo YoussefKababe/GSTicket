@@ -100,10 +100,7 @@ class Utilisateur extends \Eloquent implements UserInterface, RemindableInterfac
 
 	public function tickets()
 	{
-		if ($this->role == "partenaire")
-			return $this->hasManyThrough('Ticket', 'Produit');
-		else
-			return $this->hasMany('Ticket');
+		return $this->hasMany('Ticket');
 	}
 
 	public function reponses()
@@ -113,7 +110,7 @@ class Utilisateur extends \Eloquent implements UserInterface, RemindableInterfac
 
 	public function produits()
 	{
-		return $this->hasMany('Produit');
+		return $this->belongsToMany('Produit');
 	}
 
 }

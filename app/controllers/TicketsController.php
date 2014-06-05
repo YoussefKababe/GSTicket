@@ -9,7 +9,22 @@ class TicketsController extends \BaseController {
 	 */
 	public function index()
 	{
-		$tickets = Ticket::all();
+		$tickets = array();
+
+		$produits = Auth::user()->produits()->has('tickets')->get();
+
+		if (Auth::user()->role->role == "client")
+			foreach ($produits as $produit) {
+				foreach ($produit->tickets()->where('utilisateur_id', '=', Auth::user()->id)->get() as $ticket) {
+					array_push($tickets, $ticket);
+				}
+			}
+		else
+			foreach ($produits as $produit) {
+				foreach ($produit->tickets as $ticket) {
+					array_push($tickets, $ticket);
+				}
+			}
 
 		return View::make('tickets.index', compact('tickets'));
 	}
@@ -21,7 +36,8 @@ class TicketsController extends \BaseController {
 	 */
 	public function create()
 	{
-		return View::make('tickets.create');
+		$produits = Auth::user()->produits()->lists('nomProduit', 'nomProduit');
+		return View::make('tickets.create', compact('produits'));
 	}
 
 	/**
@@ -38,7 +54,14 @@ class TicketsController extends \BaseController {
 			return Redirect::back()->withErrors($validator)->withInput();
 		}
 
-		Ticket::create($data);
+		$produit = Produit::where('nomProduit', '=', Input::get('produit'))->first();
+		
+		$ticket = new Ticket;
+		$ticket->fill(Input::except('produit'));
+		$ticket->etat = 'ouvert';
+		$ticket->utilisateur_id = Auth::user()->id;
+
+		$produit->tickets()->save($ticket);
 
 		return Redirect::route('tickets.index');
 	}

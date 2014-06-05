@@ -14,8 +14,6 @@ class AddForeignKeysToTicketsTable extends Migration {
 	{
 		Schema::table('tickets', function(Blueprint $table)
 		{
-			$table->integer('probleme_id')->unsigned();
-			$table->foreign('probleme_id')->references('id')->on('problemes');
 			$table->integer('utilisateur_id')->unsigned();
 			$table->foreign('utilisateur_id')->references('id')->on('utilisateurs')->onDelete('cascade');
 			$table->integer('produit_id')->unsigned();
@@ -32,10 +30,9 @@ class AddForeignKeysToTicketsTable extends Migration {
 	{
 		Schema::table('tickets', function(Blueprint $table)
 		{
-			$table->dropForeign('tickets_probleme_id_foreign');
 			$table->dropForeign('tickets_utilisateur_id_foreign');
 			$table->dropForeign('tickets_produit_id_foreign');
-			$table->dropColumn('probleme_id', 'utilisateur_id', 'produit_id');
+			$table->dropColumn('utilisateur_id', 'produit_id');
 		});
 	}
 

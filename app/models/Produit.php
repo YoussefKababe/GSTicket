@@ -10,14 +10,14 @@ class Produit extends \Eloquent {
 	// Don't forget to fill this array
 	protected $fillable = [];
 
-	public function utilisateur()
-	{
-		return $this->belongsTo('Utilisateur');
-	}
-
 	public function tickets()
 	{
-		$this->hasMany('Ticket');
+		return $this->hasMany('Ticket');
+	}
+
+	public function utilisateurs()
+	{
+		return $this->belongsToMany('Utilisateur');
 	}
 
 }

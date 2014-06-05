@@ -11,13 +11,14 @@
 |
 */
 
-Route::get('/', function()
-{
-	return View::make('hello');
-});
+Route::get('/', 'HomeController@index')->before('auth');
 
 Route::resource('users', 'UtilisateursController');
 
 Route::resource('sessions', 'SessionsController');
 
-Route::get('login', 'SessionsController@create');
+Route::resource('tickets', 'TicketsController');
+
+Route::get('login', ['as' => 'sessions.login', 'uses' => 'SessionsController@create']);
+
+Route::get('logout', 'SessionsController@destroy');
