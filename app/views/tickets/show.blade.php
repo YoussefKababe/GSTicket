@@ -1,1 +1,5 @@
-/home/youssefkababe/Lab/GSTicket/app/views/tickets/show.blade.php
+<br>---------------------
+<p>Sujet: {{ $ticket->sujet }}</p>
+<p>Message: {{ $ticket->message }}</p>
+<p>Utilisateur: {{ $ticket->utilisateur->nomUtilisateur }}</p>
+-----------------------<br>

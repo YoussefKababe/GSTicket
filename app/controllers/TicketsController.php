@@ -19,12 +19,14 @@ class TicketsController extends \BaseController {
 					array_push($tickets, $ticket);
 				}
 			}
-		else
+		elseif (Auth::user()->role->role == "partenaire")
 			foreach ($produits as $produit) {
 				foreach ($produit->tickets as $ticket) {
 					array_push($tickets, $ticket);
 				}
 			}
+		else
+			$tickets = Ticket::all();
 
 		return View::make('tickets.index', compact('tickets'));
 	}
