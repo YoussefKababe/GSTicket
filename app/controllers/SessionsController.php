@@ -23,7 +23,8 @@ class SessionsController extends \BaseController {
 		{
 	    return Redirect::action('HomeController@index');
 		}
-		return "Wrong";
+
+		return Redirect::back()->withInput()->withError('Email ou mot de passe invalide!');
 	}
 
 	/**

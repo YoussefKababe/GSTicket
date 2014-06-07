@@ -1,0 +1,100 @@
+/*==============================
+=            Global            =
+==============================*/
+
+@font-face {
+	font-family: 'Droid Serif Bold';
+	src: url(../fonts/DroidSerif-Bold.ttf);
+}
+
+@font-face {
+	font-family: 'Droid Serif';
+	src: url(../fonts/DroidSerif.ttf);
+}
+
+
+/*-----  End of Global  ------*/
+
+
+
+/*==================================
+=            Login page            =
+==================================*/
+
+html.login-page {
+	
+	body {
+		background-color: #19AAD7;
+
+		.login-form {
+			width: 450px;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			margin-left: -225px;
+			margin-top: -180px;
+			text-align: center;
+
+			h1 {
+				color: white;
+				font-family: 'Droid Serif Bold';
+				font-size: 60px;
+				margin-bottom: 20px;
+			}
+
+			.panel {
+				color: #000;
+				border-radius: 0;
+				margin-bottom: 0;
+				border: none;
+				box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
+
+				&:before {
+					content: '';
+					position: absolute;
+					top: 98px;
+					right: -8px;
+					bottom: -8px;
+					left: -8px;
+					background: rgba(0, 0, 0, 0.08);
+					z-index: -1;
+				}
+
+				.alert {
+					border-radius: 0;
+				}
+
+				.panel-heading {
+					h3 {
+						font-weight: bold;
+						font-size: 14px;
+					}
+				}
+
+				.panel-body {
+					padding: 20px 15px 5px;
+
+					.input-group {
+						margin-bottom: 15px;
+					}
+				}
+
+				.panel-footer {
+					overflow: hidden;
+
+					.btn {
+						border-radius: 0;
+					}
+
+					a {
+						margin-top: 10px;
+					}
+				}
+			}
+		}
+	}
+}
+
+
+/*-----  End of Login page  ------*/
+
