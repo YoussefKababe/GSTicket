@@ -9,24 +9,26 @@ class TicketsController extends \BaseController {
 	 */
 	public function index()
 	{
-		$tickets = array();
+		// $tickets = array();
 
-		$produits = Auth::user()->produits()->has('tickets')->get();
+		// $produits = Auth::user()->produits()->has('tickets')->get();
 
-		if (Auth::user()->role->role == "client")
-			foreach ($produits as $produit) {
-				foreach ($produit->tickets()->where('utilisateur_id', '=', Auth::user()->id)->get() as $ticket) {
-					array_push($tickets, $ticket);
-				}
-			}
-		elseif (Auth::user()->role->role == "partenaire")
-			foreach ($produits as $produit) {
-				foreach ($produit->tickets as $ticket) {
-					array_push($tickets, $ticket);
-				}
-			}
-		else
-			$tickets = Ticket::all();
+		// if (Auth::user()->role->role == "client")
+		// 	foreach ($produits as $produit) {
+		// 		foreach ($produit->tickets()->where('utilisateur_id', '=', Auth::user()->id)->get() as $ticket) {
+		// 			array_push($tickets, $ticket);
+		// 		}
+		// 	}
+		// elseif (Auth::user()->role->role == "partenaire")
+		// 	foreach ($produits as $produit) {
+		// 		foreach ($produit->tickets as $ticket) {
+		// 			array_push($tickets, $ticket);
+		// 		}
+		// 	}
+		// else
+		// 	$tickets = Ticket::all();
+
+		$tickets = Ticket::all()->reverse();
 
 		return View::make('tickets.index', compact('tickets'));
 	}

@@ -1,1 +1,1 @@
-/home/youssefkababe/Lab/GSTicket/app/views/utilisateurs/show.blade.php
+{{ $utilisateur->nomUtilisateur }}

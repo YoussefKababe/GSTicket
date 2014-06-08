@@ -17,7 +17,7 @@ class Utilisateur extends \Eloquent implements UserInterface, RemindableInterfac
 		'nom' => 'between:3,20|alpha|required',
 		'prenom' => 'between:3,20|alpha|required',
 		'email' => 'email|required|unique:utilisateurs',
-		'nomUtilisateur' => 'between:3,20|regex:/^[a-zA-Z0-9\-_ ]*$/i|required|unique:utilisateurs',
+		'nomUtilisateur' => 'between:3,20|alpha_dash|required|unique:utilisateurs',
 		'motDePasse' => 'between:6,18|alpha_dash|alpha_num|confirmed|required',
 		'motDePasse_confirmation' => 'required'
 	];

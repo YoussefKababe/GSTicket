@@ -12,6 +12,10 @@
 	src: url(../fonts/DroidSerif.ttf);
 }
 
+.container {
+	width: 996px;
+}
+
 
 /*-----  End of Global  ------*/
 
@@ -97,4 +101,70 @@ html.login-page {
 
 
 /*-----  End of Login page  ------*/
+
+/*=================================
+=            Home page            =
+=================================*/
+
+html.home-page {
+
+	.navbar {
+		background-color: #19AAD7;
+		border: none;
+
+		.navbar-brand {
+			font-family: 'Droid Serif Bold';
+			color: #fff;
+			font-size: 36px;
+		}
+
+		.nav {
+			& > li > a {
+				color: #fff;
+			}
+		}
+
+		.dropdown {
+			position: relative;
+			&.open > a {
+				background-color: #3ABDE5;
+				color: #fff;
+			}
+
+			.badge {
+				position: absolute;
+				top: 5px;
+				right: 1px;
+			}
+		}
+	}
+
+	.jumbotron {
+		overflow: hidden;
+		background-color: #fff;
+		
+		p {
+			font-size: 14px;
+		}
+
+		.btn {
+			width: 49%;
+			padding: 20px 20px;
+			text-align: left;
+			margin-top: 20px;
+			border-radius: 0;
+		}
+	}
+
+	footer {
+		.container {
+			border-top: 1px solid #ebebeb;
+			padding: 10px 0;
+
+		}
+	}
+}
+
+
+/*-----  End of Home page  ------*/
 

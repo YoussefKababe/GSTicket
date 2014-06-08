@@ -11,14 +11,20 @@
 |
 */
 
-Route::get('/', 'HomeController@index')->before('auth');
+Route::get('/', 'HomeController@index');
 
 Route::resource('users', 'UtilisateursController');
 
 Route::resource('sessions', 'SessionsController');
 
-Route::resource('tickets', 'TicketsController');
+Route::group(['before' => 'auth'], function()
+{
+	Route::resource('tickets', 'TicketsController');
+});
+
 
 Route::get('login', ['as' => 'sessions.login', 'uses' => 'SessionsController@create']);
 
-Route::get('logout', 'SessionsController@destroy');
+Route::get('logout', ['as' => 'sessions.logout', 'uses' => 'SessionsController@destroy']);
+
+Route::get('{nomUtilisateur}', ['as' => 'user.show', 'uses' => 'UtilisateursController@show']);

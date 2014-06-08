@@ -17,7 +17,7 @@
 
 	<p>
 		{{ Form::label('priorite', 'Priorité:') }}
-		{{ Form::select('priorite', ['normal' => 'Normal', 'urgent' => 'Urgent'])}}
+		{{ Form::select('priorite', ['Normal' => 'Normal', 'Urgent' => 'Urgent'])}}
 	</p>
 
 	<p>

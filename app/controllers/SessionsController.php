@@ -21,7 +21,7 @@ class SessionsController extends \BaseController {
 	{
 		if (Auth::attempt(Input::only('nomUtilisateur', 'password')))
 		{
-	    return Redirect::action('HomeController@index');
+	    return Redirect::intended()->withWelcome('Bienvenue');
 		}
 
 		return Redirect::back()->withInput()->withError('Email ou mot de passe invalide!');
@@ -36,7 +36,7 @@ class SessionsController extends \BaseController {
 	public function destroy()
 	{
 		Auth::logout();
-		return Redirect::route('sessions.login');
+		return Redirect::action('HomeController@index');
 	}
 
 }

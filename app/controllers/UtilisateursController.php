@@ -52,9 +52,9 @@ class UtilisateursController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
+	public function show($nomUtilisateur)
 	{
-		$utilisateur = Utilisateur::findOrFail($id);
+		$utilisateur = Utilisateur::where('nomUtilisateur', '=', $nomUtilisateur)->first();
 
 		return View::make('utilisateurs.show', compact('utilisateur'));
 	}
