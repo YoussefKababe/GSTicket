@@ -25,7 +25,8 @@ class Ticket extends \Eloquent {
 		return $this->belongsTo('Produit');
 	}
 
-	public function documents(){
+	public function documents()
+	{
 		return $this->morphMany('Document', 'documentable');
 	}
 

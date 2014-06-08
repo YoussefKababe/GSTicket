@@ -16,6 +16,9 @@
 	width: 996px;
 }
 
+.alert {
+	border-radius: 0;
+}
 
 /*-----  End of Global  ------*/
 
@@ -62,10 +65,6 @@ html.login-page {
 					left: -8px;
 					background: rgba(0, 0, 0, 0.08);
 					z-index: -1;
-				}
-
-				.alert {
-					border-radius: 0;
 				}
 
 				.panel-heading {
@@ -115,10 +114,11 @@ html.home-page {
 		.navbar-brand {
 			font-family: 'Droid Serif Bold';
 			color: #fff;
-			font-size: 36px;
+			font-size: 26px;
 		}
 
 		.nav {
+
 			& > li > a {
 				color: #fff;
 			}
@@ -126,6 +126,7 @@ html.home-page {
 
 		.dropdown {
 			position: relative;
+
 			&.open > a {
 				background-color: #3ABDE5;
 				color: #fff;
@@ -135,6 +136,7 @@ html.home-page {
 				position: absolute;
 				top: 5px;
 				right: 1px;
+				background-color: #F04237;
 			}
 		}
 	}
@@ -142,6 +144,7 @@ html.home-page {
 	.jumbotron {
 		overflow: hidden;
 		background-color: #fff;
+		color: #5E5E5E;
 		
 		p {
 			font-size: 14px;
@@ -153,6 +156,23 @@ html.home-page {
 			text-align: left;
 			margin-top: 20px;
 			border-radius: 0;
+		}
+	}
+
+	table {
+		border: 1px solid #DCDCDC;
+		color: #555;
+
+		.align-center {
+			text-align: center;
+		}
+
+		td {
+			vertical-align: middle;
+		}
+
+		thead {
+			background-color: #E9E9E9;
 		}
 	}
 

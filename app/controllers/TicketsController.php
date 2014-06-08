@@ -62,7 +62,7 @@ class TicketsController extends \BaseController {
 		
 		$ticket = new Ticket;
 		$ticket->fill(Input::except('produit'));
-		$ticket->etat = 'ouvert';
+		$ticket->etat = 'Ouvert';
 		$ticket->utilisateur_id = Auth::user()->id;
 
 		$produit->tickets()->save($ticket);
