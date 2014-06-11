@@ -18,6 +18,7 @@ class CreateUtilisateursTable extends Migration {
 			$table->string('prenom');
 			$table->string('email')->unique();
 			$table->string('nomUtilisateur')->unique();
+			$table->string('photo');
 			$table->string('motDePasse');
 			$table->string('remember_token')->nullable();
 			$table->timestamps();

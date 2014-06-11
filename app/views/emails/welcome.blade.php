@@ -103,18 +103,18 @@
 	<div class="wrap" style="margin: 0;padding: 0;width: 450px;position: absolute;top: 100px;left: 50%;margin-left: -225px;">
 		<div class="panel" style="margin: 0;padding: 0;border: 1px solid #ddd;background-color: #fff;box-shadow: 0 0 200px rgba(255,255,255,0.5), 0 1px 2px rgba(0,0,0,0.3);">
 		  <div class="panel-heading" style="margin: 0;padding: 10px 15px;background-color: #f5f5f5;border-bottom: 1px solid #ddd;line-height: 15px;">
-		    <h3 class="panel-title" style="margin: 0;padding: 0;font-size: 14px;">GSTicket - Rénitialisation de mot de passe</h3>
+		    <h3 class="panel-title" style="margin: 0;padding: 0;font-size: 14px;">GSTicket - Bienvenue <strong>{{ $prenom }} {{ $nom }}</strong></h3>
 		  </div>
 		  <div class="panel-body" style="margin: 0;padding: 20px 15px;font-size: 14px;">
 		    <p style="margin: 0;padding: 0;">
-		    	Vous recevez ce message parce que vous avez demandé de rénitialiser votre motde passe, si vous ne voullez pas le changer vous pouvez simplement ignorer ce message. 
+		    	Votre compte GSTicket a été bien crée, vous devez maintenant confirmer votre e-mail et choisir un mot de passe pour pouvoir beneficier de nos services. 
 				</p><br>
 				<p>
-		    	Le lien de rénitialisation est valide pendant une heure, au cas oû il ne marche plus, vous devez cliquer <a href="{{ URL::to('password/remind') }}">ici</a> afin de commencer de nouveau!
+		    	Le lien de confirmation est valide pendant une heure, au cas oû il ne marche plus, vous devez cliquer <a href="{{ URL::to('password/remind') }}">ici</a> afin de commencer de nouveau!
 		    </p>
 		  </div>
 		  <div class="panel-footer" style="margin: 0;padding: 10px 15px;background-color: #f5f5f5;font-size: 14px;border-top: 1px solid #ddd;">
-		    <a href="{{ URL::to('password/reset', array($token)) }}" style="margin: 0;padding: 6px 12px;display: inline-block;font-size: 14px;border: 1px solid #ccc;color: #000;text-decoration: none;background-color: #fff;">Rénitialiser mon mot de passe</a>
+		    <a href="{{ URL::to('password/setpassword', array($token)) }}" style="margin: 0;padding: 6px 12px;display: inline-block;font-size: 14px;border: 1px solid #ccc;color: #000;text-decoration: none;background-color: #fff;">Continuer l'inscription</a>
 		    <a class="home" href="{{ url('/') }}" style="margin: 0;padding: 6px 12px;display: inline-block;font-size: 14px;border: 1px solid #ccc;color: #fff;text-decoration: none;background-color: #5bc0de;float: right;border-color: #46b8da;">GSTicket</a>
 		  </div>
 		</div>

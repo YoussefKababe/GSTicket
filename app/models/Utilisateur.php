@@ -18,12 +18,12 @@ class Utilisateur extends \Eloquent implements UserInterface, RemindableInterfac
 		'prenom' => 'between:3,20|alpha|required',
 		'email' => 'email|required|unique:utilisateurs',
 		'nomUtilisateur' => 'between:3,20|alpha_dash|required|unique:utilisateurs',
-		'motDePasse' => 'between:6,18|alpha_dash|alpha_num|confirmed|required',
-		'motDePasse_confirmation' => 'required'
+		'motDePasse' => 'sometimes|between:6,18|alpha_dash|alpha_num|confirmed|required',
+		'motDePasse_confirmation' => 'sometimes|required'
 	];
 
 	// Don't forget to fill this array
-	protected $fillable = ['nom', 'prenom', 'email', 'nomUtilisateur', 'motDePasse', 'role_id'];
+	protected $fillable = ['nom', 'prenom', 'email', 'nomUtilisateur', 'role_id'];
 
 	/**
 	 * The attributes excluded from the model's JSON form.

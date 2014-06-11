@@ -21,7 +21,7 @@ class SessionsController extends \BaseController {
 	{
 		if (Auth::attempt(Input::only('nomUtilisateur', 'password')))
 		{
-	    return Redirect::intended()->withWelcome('Bienvenue');
+	    return Redirect::intended()->withInfo('Bienvenue ' . Auth::user()->nomUtilisateur . '!');
 		}
 
 		return Redirect::back()->withInput()->withError('Email ou mot de passe invalide!');

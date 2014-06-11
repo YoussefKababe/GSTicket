@@ -4,11 +4,11 @@ class Reponse extends \Eloquent {
 
 	// Add your validation rules here
 	public static $rules = [
-		// 'title' => 'required'
+		'message' => 'required'
 	];
 
 	// Don't forget to fill this array
-	protected $fillable = [];
+	protected $fillable = ['message'];
 
 	public function utilisateur()
 	{

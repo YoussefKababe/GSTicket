@@ -9,7 +9,7 @@ class TicketsController extends \BaseController {
 	 */
 	public function index()
 	{
-		// $tickets = array();
+		$tickets = array();
 
 		// $produits = Auth::user()->produits()->has('tickets')->get();
 
@@ -28,9 +28,16 @@ class TicketsController extends \BaseController {
 		// else
 		// 	$tickets = Ticket::all();
 
-		$tickets = Ticket::all()->reverse();
+		$priorite = Input::get('priorite') ? Input::get('priorite') : '%';
+		$etat = Input::get('etat') ? Input::get('etat') : '%';
+		$query = Input::get('q') ? '%' . Input::get('q') . '%' : '%';
 
-		return View::make('tickets.index', compact('tickets'));
+		$tickets = Ticket::where('priorite', 'like', $priorite, 'and')
+								->where('etat', 'like', $etat, 'and')
+								->where('sujet', 'like', $query)
+								->get()->reverse();
+
+		return View::make('tickets.index', compact('tickets'));	
 	}
 
 	/**
@@ -61,8 +68,9 @@ class TicketsController extends \BaseController {
 		$produit = Produit::where('nomProduit', '=', Input::get('produit'))->first();
 		
 		$ticket = new Ticket;
-		$ticket->fill(Input::except('produit'));
+		$ticket->fill(Input::except('produit', 'message'));
 		$ticket->etat = 'Ouvert';
+		$ticket->message = Markdown::render(Input::get('message'));
 		$ticket->utilisateur_id = Auth::user()->id;
 
 		$produit->tickets()->save($ticket);

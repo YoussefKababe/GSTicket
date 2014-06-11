@@ -1,5 +1,7 @@
 <?php
 
+use Carbon\Carbon;
+
 class UtilisateursController extends \BaseController {
 
 	/**
@@ -39,11 +41,30 @@ class UtilisateursController extends \BaseController {
 		}
 
 		$user = new Utilisateur;
-		$user->fill(Input::except('motDePasse', 'motDePasse_confirmation'));
-		$user->motDePasse = Hash::make(Input::get('motDePasse'));
+		$user->fill(Input::all());
+		$user->motDePasse = Hash::make(str_random(12));
+		if (Auth::guest() && !Input::has('role_id'))
+			$user->role_id = '3';
 		$user->save();
 
-		return Redirect::route('users.index');
+		$token = str_random(40);
+
+		DB::table('password_reminders')->insert(
+	    array('email' => $user->email, 'token' => $token, 'created_at' => Carbon::now())
+		);
+
+		$data = [
+			'token' => $token,
+			'nom' => $user->nom,
+			'prenom' => $user->prenom
+		];
+
+		Mail::send('emails.welcome', $data, function($message) use ($user)
+		{
+		  $message->to($user->email, "$user->prenom $user->nom")->subject('Bienvenue!');
+		});
+
+		return Redirect::to('/')->withInfo('Succes! Vous allez recevoir un message contenant les informations pour continuer la création de votre compte.');
 	}
 
 	/**

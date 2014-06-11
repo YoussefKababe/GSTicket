@@ -17,14 +17,20 @@ Route::resource('users', 'UtilisateursController');
 
 Route::resource('sessions', 'SessionsController');
 
+Route::resource('reponses', 'ReponsesController');
+
 Route::group(['before' => 'auth'], function()
 {
 	Route::resource('tickets', 'TicketsController');
+	Route::get('logout', ['as' => 'sessions.logout', 'uses' => 'SessionsController@destroy']);
 });
 
-
-Route::get('login', ['as' => 'sessions.login', 'uses' => 'SessionsController@create']);
-
-Route::get('logout', ['as' => 'sessions.logout', 'uses' => 'SessionsController@destroy']);
+Route::group(['before' => 'guest'], function()
+{
+	Route::controller('password', 'RemindersController');
+	Route::get('login', ['as' => 'sessions.login', 'uses' => 'SessionsController@create']);
+	Route::get('register', ['as' => 'user.register', 'uses' => 'UtilisateursController@create']);
+});
 
 Route::get('{nomUtilisateur}', ['as' => 'user.show', 'uses' => 'UtilisateursController@show']);
+

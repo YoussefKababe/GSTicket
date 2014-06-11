@@ -38,6 +38,7 @@
           </li>
         @else
           <li><a href="{{ route('sessions.login') }}">Se connecter</a></li>
+          <li><a href="{{ route('user.register') }}">Créer un compte</a></li>
         @endif
       </ul>
     </div>
@@ -45,8 +46,8 @@
 
   <section class="main">
     <div class="container">
-      @if (Session::has('welcome'))
-        <div class="alert alert-success">{{ Session::get('welcome') }} <strong>{{ Auth::user()->nomUtilisateur }}!</strong></div>
+      @if (Session::has('info'))
+        <div class="alert alert-success">{{ Session::get('info') }}</strong></div>
       @endif
       @yield('content')
     </div>

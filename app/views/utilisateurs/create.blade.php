@@ -1,42 +1,52 @@
-{{ Form::open(array('route' => 'users.store')) }}
-	
-	<p>
-		{{ Form::label('nom', 'Nom:') }}
-		{{ Form::text('nom') }}
-	</p>
+@extends('layouts.login')
 
-	<p>
-		{{ Form::label('prenom', 'Prenom:') }}
-		{{ Form::text('prenom') }}
-	</p>
 
-	<p>
-		{{ Form::label('email', 'Email:') }}
-		{{ Form::text('email') }}
-	</p>
+@section('content')
 
-	<p>
-		{{ Form::label('nomUtilisateur', 'Nom utilisateur:') }}
-		{{ Form::text('nomUtilisateur') }}
-	</p>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Inscription</h3>
+  </div>
 
-	<p>
-		{{ Form::label('role_id', 'Type de compte:')}}
-		{{ Form::select('role_id', ['1'=> 'Administrateur', '2' => 'Partenaire', '3' => 'CLient']) }}
-	</p>
+  {{ Form::open(array('action' => 'UtilisateursController@store', 'class' => 'form-horizontal', 'role' => 'form')) }}
 
-	<p>
-		{{ Form::label('motDePasse'), 'Mot de passe:' }}
-		{{ Form::password('motDePasse') }}
-	</p>
+  <div class="panel-body">
 
-	<p>
-		{{ Form::label('motDePasse_confirmation', 'Confirmation:')}}
-		{{ Form::password('motDePasse_confirmation') }}
-	</p>
+  		@if ( Session::has('error') )
+				<div class="alert alert-danger">
+					{{ Session::get('error') }}
+				</div>
+  		@endif
 
-	<p>
-		{{ Form::submit('Creer') }}
-	</p>
+  		<div class="input-group">
+				<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+				{{ Form::text('nom', null, ['class' => 'form-control', 'placeholder' => 'Votre nom']) }}
+			</div>
 
-{{ Form::close() }}
+			<div class="input-group">
+				<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+				{{ Form::text('prenom', null, ['class' => 'form-control', 'placeholder' => 'Votre prenom']) }}
+			</div>
+
+			<div class="input-group">
+				<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+				{{ Form::text('email', null, ['class' => 'form-control', 'placeholder' => 'Adresse e-mail']) }}
+			</div>
+
+  		<div class="input-group">
+				<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+				{{ Form::text('nomUtilisateur', null, ['class' => 'form-control', 'placeholder' => 'Nom d\'utilisateur']) }}
+			</div>
+
+  </div>
+
+	<div class="panel-footer">
+	  <div class="input-group pull-left">
+			{{ Form::submit('Créer mon compte', ['class' => 'btn btn-default']) }}
+		</div>
+	</div>
+
+  {{ Form::close() }}
+</div>
+
+@stop

@@ -5,10 +5,10 @@
 
 <div class="panel panel-default">
   <div class="panel-heading">
-    <h3 class="panel-title">Authentification</h3>
+    <h3 class="panel-title">Réinitialisation de mot de passe</h3>
   </div>
 
-  {{ Form::open(array('route' => 'sessions.store', 'class' => 'form-horizontal', 'role' => 'form')) }}
+  {{ Form::open(array('action' => 'RemindersController@postRemind', 'class' => 'form-horizontal', 'role' => 'form')) }}
 
   <div class="panel-body">
 
@@ -16,9 +16,9 @@
 				<div class="alert alert-danger">
 					{{ Session::get('error') }}
 				</div>
-			@elseif ( Session::has('info') )
+			@elseif ( Session::has('status') )
 				<div class="alert alert-success">
-					{{ Session::get('info') }}
+					{{ Session::get('status') }}
 				</div>
   		@endif
 
@@ -27,18 +27,12 @@
 				{{ Form::text('nomUtilisateur', null, ['class' => 'form-control', 'placeholder' => 'Nom d\'utilisateur']) }}
 			</div>
 
-			<div class="input-group">
-				<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-				{{ Form::password('password', ['class' => 'form-control', 'placeholder' => 'Mot de passe'])}}
-			</div>
-
   </div>
 
 	<div class="panel-footer">
 	  <div class="input-group pull-left">
-			{{ Form::submit('Se connecter', ['class' => 'btn btn-default']) }}
+			{{ Form::submit('Envoyez moi un email de réinitialisation', ['class' => 'btn btn-default']) }}
 		</div>
-		<a href="{{ action('RemindersController@getRemind') }}" class="pull-right">Mot de passe oublié?</a>
 	</div>
 
   {{ Form::close() }}

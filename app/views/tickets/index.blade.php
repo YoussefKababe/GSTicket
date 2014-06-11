@@ -1,6 +1,44 @@
 @extends('layouts.default')
 
 @section('content')
+	
+	<div class="search-filter">
+		<div class="filter">
+			{{ Form::open(['action' => 'TicketsController@index', 'method' => 'get', 'class' => 'form-inline', 'role' => 'form']) }}
+
+				<div class="form-group">
+					{{ Form::text('q', Input::get('q'), ['placeholder' => 'Mots clés', 'class' => 'form-control']) }}		
+				</div>
+
+				<div class="form-group">
+					{{ Form::select('priorite', [
+						'' => 'Priorité',
+						'Normal' => 'Normal',
+						'Urgent' => 'Urgent',
+						'Critique' => 'Critique'],
+						Input::get('priorite'),
+						['class' => 'form-control']
+					) }}
+				</div>
+
+				<div class="form-group">
+					{{ Form::select('etat', [
+						'' => 'Etat',
+						'Ouvert' => 'Ouvert',
+						'Transmit' => 'Transmit',
+						'Résolu' => 'Résolu'],
+						Input::get('etat'),
+						['class' => 'form-control']
+					) }}
+				</div>
+
+				<div class="form-group">
+					{{ Form::submit('Filtrer', ['class' => 'btn btn-info']) }}
+				</div>
+			{{ Form::close() }}
+		</div>
+	</div>
+
 	<table class="table table-hover">
 		<thead>
 			<th>Sujet</th>
@@ -11,9 +49,13 @@
 
 		<tbody>
 			@foreach ($tickets as $ticket)
-				<tr>
+				@if ($ticket->etat == "Résolu")
+					<tr class="resolved">
+				@else
+					<tr>
+				@endif
 					<td>
-						<strong>{{ link_to_route('tickets.show', $ticket->sujet, $ticket->id) }}</strong>
+						<strong>{{ link_to_route('tickets.show', $ticket->sujet, $ticket->id, ['class' => 'subject']) }}</strong>
 						<p><small>Par: <strong>{{ link_to_route('user.show', $ticket->utilisateur->nomUtilisateur, $ticket->utilisateur->nomUtilisateur) }}</strong> - <span class="time">{{ $ticket->created_at }}</span></small></p>
 					</td>
 					<td>
@@ -39,7 +81,7 @@
       moment.lang('fr');
       $('.time').each(function() {
         var time = $(this).text() + '+0000';
-        $(this).text(moment(time).fromNow());
+        $(this).text(moment(time).calendar());
       });
     });
   </script>
