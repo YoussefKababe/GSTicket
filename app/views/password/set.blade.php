@@ -8,7 +8,7 @@
     <h3 class="panel-title">Inscription - Choisissez votre mot de passe</h3>
   </div>
 
-  {{ Form::open(array('action' => 'RemindersController@postReset', 'class' => 'form-horizontal', 'role' => 'form')) }}
+  {{ Form::open(array('action' => 'RemindersController@postSet', 'class' => 'form-horizontal', 'role' => 'form', 'files' => true)) }}
 
   <div class="panel-body">
 
@@ -21,12 +21,14 @@
   		<div id="picture-container" class="picture">
   			<img src="/uploads/userimg/default.png" id="preview">
   		</div>
-  		{{ Form::file('image', ['id' => 'image-input']) }}
+  		{{ Form::file('photo', ['id' => 'image-input']) }}
 
-  		<input type="text" id="x" hidden="hidden">
-  			<input type="text" id="y" hidden="hidden">
-  			<input type="text" id="w" hidden="hidden">
-  			<input type="text" id="h" hidden="hidden">	
+  		<input type="text" id="x" name="x" hidden>
+			<input type="text" id="y" name="y" hidden>
+			<input type="text" id="w" name="w" hidden>
+			<input type="text" id="h" name="h" hidden>	
+			<input type="text" id="boundx" name="boundx" hidden>	
+			<input type="text" id="boundy" name="boundy" hidden>	
 
 
   		<div class="input-group">
@@ -108,23 +110,27 @@
 			$('#y').val(coords.y);
 			$('#w').val(coords.w);
 			$('#h').val(coords.h);
+			$('#boundx').val(boundx);
+			$('#boundy').val(boundy);
 		}
 
 		function initCoords()
 		{
-			var rx = xsize / 200;
-			var ry = ysize / 200;
+			var rx = xsize / 150;
+			var ry = ysize / 150;
 
 			$('#x').val(50);
 			$('#y').val(50);
 			$('#w').val(150);
 			$('#h').val(150);
+			$('#boundx').val(boundx);
+			$('#boundy').val(boundy);
 
 			$('#preview').css({
 				width: Math.round(rx * boundx) + 'px',
 				height: Math.round(ry * boundy) + 'px',
-				marginLeft: '-' + Math.round(rx * 0) + 'px',
-				marginTop: '-' + Math.round(ry * 0) + 'px'
+				marginLeft: '-' + Math.round(rx * 50) + 'px',
+				marginTop: '-' + Math.round(ry * 50) + 'px'
 			});
 		}
 

@@ -99,4 +99,67 @@ class RemindersController extends Controller {
 
 		return View::make('password.set')->with(['token' => $token, 'nomUtilisateur' => $user->nomUtilisateur]);
 	}
+
+		/**
+	 * Handle a POST request to reset a user's password.
+	 *
+	 * @return Response
+	 */
+	public function postSet()
+	{
+		if(Input::hasFile('photo')) {
+			$file = Input::file('photo');
+
+			$validator = Validator::make(
+		    array('photo' => $file),
+		    array('photo' => 'image')
+			);
+
+			if ($validator->fails())
+				return Redirect::back()->withInput()->withError('L\'extension de votre photo est invalide!');
+
+			$fileName = str_random(40) . '.' . $file->getClientOriginalExtension();
+			$file->move('public/uploads/userimg', $fileName);
+
+			$img = Image::make('public/uploads/userimg/' . $fileName);
+
+			$w = intval(Input::get('w'));
+			$h = intval(Input::get('h'));
+			$x = intval(Input::get('x'));
+			$y = intval(Input::get('y'));
+			$boundx = intval(Input::get('boundx'));
+			$boundy = intval(Input::get('boundy'));
+
+			$img->resize($boundx, $boundy);
+			$img->crop($w, $h, $x, $y);
+			$img->save();
+
+			$user = Utilisateur::where('nomUtilisateur', Input::get('nomUtilisateur'))->first();
+			$user->photo = $fileName;
+			$user->save();
+		}
+
+		$credentials = Input::only(
+			'nomUtilisateur', 'password', 'password_confirmation', 'token'
+		);
+
+		$response = Password::reset($credentials, function($user, $password)
+		{
+			$user->motDePasse = Hash::make($password);
+
+			$user->save();
+		});
+
+		switch ($response)
+		{
+			case Password::INVALID_PASSWORD:
+			case Password::INVALID_TOKEN:
+			case Password::INVALID_USER:
+				return Redirect::back()->with('error', Lang::get($response));
+
+			case Password::PASSWORD_RESET:
+				return Redirect::route('sessions.login')->withInput()->withInfo('Votre mot de passe a été enregistré avec succes, vous pouvez maintenant vous authentifier.');
+		}
+
+	}
 }

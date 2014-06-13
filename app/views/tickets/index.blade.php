@@ -55,6 +55,9 @@
 					<tr>
 				@endif
 					<td>
+						<a class="userimg pull-left" href="{{ action('user.show', $ticket->utilisateur->nomUtilisateur) }}">
+							<img src="/uploads/userimg/{{ $ticket->utilisateur->photo }}" class="img img-thumbnail">
+						</a>
 						<strong>{{ link_to_route('tickets.show', $ticket->sujet, $ticket->id, ['class' => 'subject']) }}</strong>
 						<p><small>Par: <strong>{{ link_to_route('user.show', $ticket->utilisateur->nomUtilisateur, $ticket->utilisateur->nomUtilisateur) }}</strong> - <span class="time">{{ $ticket->created_at }}</span></small></p>
 					</td>

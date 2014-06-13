@@ -13,6 +13,7 @@ class UtilisateursTableSeeder extends Seeder {
 			'nom' => 'Kababe',
 			'prenom' => 'Youssef',
 			'email' => 'youssef.kbe@gmail.com',
+			'photo' => 'default.png',
 			'nomUtilisateur' => 'Youssef Kababe',
 			'motDePasse' => Hash::make('123456'),
 			'role_id' => '1'
@@ -22,6 +23,7 @@ class UtilisateursTableSeeder extends Seeder {
 			'nom' => 'Fahmi',
 			'prenom' => 'Salman',
 			'email' => 'salman.fahmi@gmail.com',
+			'photo' => 'default.png',
 			'nomUtilisateur' => 'Salman Fahmi',
 			'motDePasse' => Hash::make('123456'),
 			'role_id' => '1'
@@ -34,6 +36,7 @@ class UtilisateursTableSeeder extends Seeder {
 				'prenom' => $faker->firstName,
 				'email' => $faker->email,
 				'nomUtilisateur' => $faker->userName,
+				'photo' => 'default.png',
 				'motDePasse' => Hash::make('123456'),
 				'role_id' => '2'
 			]);
@@ -43,6 +46,7 @@ class UtilisateursTableSeeder extends Seeder {
 				'prenom' => $faker->firstName,
 				'email' => $faker->email,
 				'nomUtilisateur' => $faker->userName,
+				'photo' => 'default.png',
 				'motDePasse' => Hash::make('123456'),
 				'role_id' => '3'
 			]);

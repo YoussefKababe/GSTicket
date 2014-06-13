@@ -6,7 +6,8 @@
 	"require": {
 		"laravel/framework": "4.1.*",
 		"codesleeve/asset-pipeline": "dev-master",
-		"graham-campbell/markdown": "1.1.*"
+		"graham-campbell/markdown": "1.1.*",
+		"intervention/image": "2.*"
 	},
 	"autoload": {
 		"classmap": [

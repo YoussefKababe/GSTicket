@@ -4,6 +4,9 @@
 	<div class="col-xs-8">
 		<div class="panel panel-default">
 		  <div class="panel-heading">
+		  	<a class="userimg pull-left" href="{{ action('user.show', $ticket->utilisateur->nomUtilisateur) }}">
+					<img src="/uploads/userimg/{{ $ticket->utilisateur->photo }}" class="img img-thumbnail">
+				</a>
 		    <h3 class="panel-title">{{ $ticket->sujet }}</h3>
 		    <p><small>Par: <strong>{{ link_to_route('user.show', $ticket->utilisateur->nomUtilisateur, $ticket->utilisateur->nomUtilisateur) }}</strong> - <span class="time">{{ $ticket->created_at }}</span></small></p>
 		  </div>
@@ -34,6 +37,9 @@
 		@foreach ($ticket->reponses as $reponse)
 			<div class="panel panel-default">
 			  <div class="panel-heading">
+			  	<a class="userimg pull-left" href="{{ action('user.show', $ticket->utilisateur->nomUtilisateur) }}">
+						<img src="/uploads/userimg/{{ $reponse->utilisateur->photo }}" class="img img-thumbnail">
+					</a>
 			    <h3 class="panel-title">{{ link_to_route('user.show', $reponse->utilisateur->nomUtilisateur, $reponse->utilisateur->nomUtilisateur) }}</h3>
 			    <p><small><span class="time">{{ $reponse->created_at }}</span></small></p>
 			  </div>

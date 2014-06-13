@@ -121,7 +121,8 @@ return array(
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		'Way\Generators\GeneratorsServiceProvider',
 		'Codesleeve\AssetPipeline\AssetPipelineServiceProvider',
-		'GrahamCampbell\Markdown\MarkdownServiceProvider'
+		'GrahamCampbell\Markdown\MarkdownServiceProvider',
+		'Intervention\Image\ImageServiceProvider'
 
 	),
 
@@ -188,7 +189,8 @@ return array(
 		'URL'             => 'Illuminate\Support\Facades\URL',
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
-		'Markdown'        => 'GrahamCampbell\Markdown\Facades\Markdown'
+		'Markdown'        => 'GrahamCampbell\Markdown\Facades\Markdown',
+		'Image' 					=> 'Intervention\Image\Facades\Image'
 
 	),
 
