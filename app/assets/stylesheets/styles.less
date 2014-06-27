@@ -26,6 +26,16 @@
 	border-radius: 0;
 }
 
+.userimg {
+	margin-right: 10px;
+
+	img {
+		width: 45px;
+		border-radius: 0;
+		padding: 1px;
+	}
+}
+
 /*-----  End of Global  ------*/
 
 
@@ -207,8 +217,54 @@ html.home-page {
 		.dropdown {
 			position: relative;
 
+			img {
+				width: 40px;
+				margin-top: -10px;
+				margin-right: 10px;
+				border-radius: 0;
+				padding: 0;
+			}
+
 			.dropdown-menu {
 				border-radius: 0;
+				overflow: hidden;
+
+				&.notifications{
+					padding-top: 0;
+
+					a {
+						padding: 10px 55px 10px 5px;
+						border-bottom: 1px solid #eee;
+						font-size: 12px;
+						overflow: hidden;
+						line-height: 13px;
+
+						img {
+							margin-top: 0;
+							margin-left: 0;
+						}
+
+						p {
+							color: #428bca;
+							font-weight: bold;
+							margin-bottom: 0;
+						}
+					}
+
+					.no-notification {
+						text-align: center;
+						padding: 10px 5px;
+						width: 400px;
+						font-weight: bold;
+						color: #aaa;
+					}
+				}
+
+				.dropdown-heading {
+					padding: 5px;
+					border-bottom: 1px solid #ddd;
+					font-weight: bold;
+				}
 			}
 
 			&.open > a {
@@ -257,38 +313,65 @@ html.home-page {
 			p {
 				margin-bottom: 0;
 			}
-
-			.userimg {
-				margin-right: 10px;
-
-				img {
-					width: 45px;
-					border-radius: 0;
-				}
-			}
 		}
 
-		&.reponse {
+		&.postreponse {
 			
 			.panel-body {
 				padding: 0;
 
-				textarea {
-					border-radius: 0;
+				.note-editor {
 					border: none;
-					width: 100%;
-					max-width: 100%;
-					max-height: 120px;
-					resize: none;
 
-					&:focus {
-						box-shadow: none;
+					&.fullscreen {
+						width: 100% !important;
 					}
 				}
-			}
 
-			.panel-footer {
-				// background-color: #D9EDF7;
+				.note-toolbar {
+					border-color: #ddd;
+				}
+
+				.note-resizebar {
+					border-color: #ddd;
+				}
+			}
+		}
+
+		&.postedreponse,
+		&.ticketpanel {
+
+			h3 {
+				margin-top: 2px;
+			}
+		}
+
+		&.postedreponse {
+
+			.panel-heading {
+
+				h3 {
+
+					a {
+						color: #428bca;
+
+						&:hover {
+							color: #2a6496;
+						}
+					}
+				}
+
+				.label {
+					margin-top: 6px;
+					padding: 10px 15px;
+					background-color: transparent;
+					border: 1px solid #ddd;
+					color: #999;
+				}
+
+				.author-info {
+					padding-left: 0;
+				}
 			}
 		}
 	}
@@ -318,15 +401,6 @@ html.home-page {
 
 		td {
 			vertical-align: middle;
-
-			.userimg {
-				margin-right: 10px;
-
-				img {
-					width: 45px;
-					border-radius: 0;
-				}
-			}
 		}
 
 		thead {

@@ -13,8 +13,8 @@ class UtilisateursTableSeeder extends Seeder {
 			'nom' => 'Kababe',
 			'prenom' => 'Youssef',
 			'email' => 'youssef.kbe@gmail.com',
-			'photo' => 'default.png',
-			'nomUtilisateur' => 'Youssef Kababe',
+			'photo' => 'UOrQlNUync264VDJvtQway3hfB8wvvBPaYlv6RMW.jpg',
+			'nomUtilisateur' => 'YoussefKababe',
 			'motDePasse' => Hash::make('123456'),
 			'role_id' => '1'
 		]);
@@ -23,8 +23,8 @@ class UtilisateursTableSeeder extends Seeder {
 			'nom' => 'Fahmi',
 			'prenom' => 'Salman',
 			'email' => 'salman.fahmi@gmail.com',
-			'photo' => 'default.png',
-			'nomUtilisateur' => 'Salman Fahmi',
+			'photo' => 'hyeuCjJ9a3I96TrJe4G5nWq6Tdw0fJbNeQ9PbIgf.jpg',
+			'nomUtilisateur' => 'SalmanFahmi',
 			'motDePasse' => Hash::make('123456'),
 			'role_id' => '1'
 		]);

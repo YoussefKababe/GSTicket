@@ -14,4 +14,5 @@
 //= require jquery.Jcrop
 //= require bootstrap
 //= require moment
+//= require summernote
 //= require_tree .

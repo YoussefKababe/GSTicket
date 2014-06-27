@@ -132,6 +132,7 @@ class RemindersController extends Controller {
 
 			$img->resize($boundx, $boundy);
 			$img->crop($w, $h, $x, $y);
+			$img->resize(150, 150);
 			$img->save();
 
 			$user = Utilisateur::where('nomUtilisateur', Input::get('nomUtilisateur'))->first();

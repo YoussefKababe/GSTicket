@@ -10,6 +10,8 @@
  * but before any files alphabetically greater than 'application.css' 
  *
  *= require bootstrap
- *= require_tree .
+ *= require font-awesome
+ *= require summernote
  *= require jquery.Jcrop
+ *= require_tree .
  */

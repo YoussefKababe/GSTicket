@@ -25,4 +25,9 @@ class Reponse extends \Eloquent {
 		return $this->morphMany('Document', 'documentable');
 	}
 
+	public function notifications()
+	{
+		return $this->hasMany('Notification');
+	}
+
 }

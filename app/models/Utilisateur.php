@@ -113,4 +113,9 @@ class Utilisateur extends \Eloquent implements UserInterface, RemindableInterfac
 		return $this->belongsToMany('Produit');
 	}
 
+	public function notifications()
+	{
+		return $this->belongsToMany('Notification');
+	}
+
 }

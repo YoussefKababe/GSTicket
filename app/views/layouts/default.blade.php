@@ -17,18 +17,35 @@
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="glyphicon glyphicon-bell"></i>
-              <span class="badge pull-right">5</span>
+              <?php $notificationsCount = Auth::user()->notifications()->count() ?>
+              @if ($notificationsCount != 0)
+                <span class="badge pull-right">{{ $notificationsCount }}</span>
+              @endif
             </a>
-            <ul class="dropdown-menu">
-              <li><a href="#">Action</a></li>
-              <li><a href="#">Another action</a></li>
-              <li><a href="#">Something else here</a></li>
-              <li class="divider"></li>
-              <li><a href="#">Separated link</a></li>
+            <ul class="dropdown-menu notifications">
+              <div class="dropdown-heading">Notifications</div>
+              @if ($notificationsCount == 0)
+                <div class="no-notification">Aucune notification</div>
+              @else
+                @foreach (Auth::user()->notifications->reverse() as $notification)
+                  <li>
+                    <a href="{{ route('tickets.show', ['id' => $notification->reponse->ticket->id]); }}">
+                      <img src="/uploads/userimg/{{ $notification->reponse->utilisateur->photo }}" alt="" class="img img-thumbnail pull-left">
+                      <strong>{{ $notification->reponse->utilisateur->nomUtilisateur }}</strong> {{ $notification->message }}:
+                      <p>{{ $notification->reponse->ticket->sujet }}</p>
+                      <small class="time">{{ $notification->created_at }}</small>
+                    </a>
+                  </li>
+                @endforeach
+              @endif
             </ul>
           </li>
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ Auth::user()->nomUtilisateur }} <b class="caret"></b></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <img src="/uploads/userimg/{{ Auth::user()->photo }}" class="img img-thumbnail pull-left">
+              {{ Auth::user()->nomUtilisateur }} 
+              <b class="caret"></b>
+            </a>
             <ul class="dropdown-menu">
               <li><a href="{{ route('user.show', Auth::user()->nomUtilisateur, Auth::user()->nomUtilisateur) }}">Mes discussions</a></li>
               <li><a href="#">Creer discussion</a></li>

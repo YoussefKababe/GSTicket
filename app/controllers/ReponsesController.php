@@ -42,10 +42,33 @@ class ReponsesController extends \BaseController {
 		$ticket = Ticket::findOrFail(Input::get('id'));
 
 		$reponse = new Reponse;
-		$reponse->message = Markdown::render(Input::get('message'));
+		$reponse->message = Input::get('message');
 		$reponse->utilisateur_id = Auth::user()->id;
 
 		$ticket->reponses()->save($reponse);
+
+		if ($reponse->utilisateur != $ticket->utilisateur) {
+			$notification = new Notification;
+			$notification->message = "a répondu à votre discussion";
+			$notification->reponse_id = $reponse->id;
+
+			$ticket->utilisateur->notifications()->save($notification);
+		}
+
+		$notification = new Notification;
+
+		if ($reponse->utilisateur == $ticket->utilisateur)
+			$notification->message = "a répondu à sa discussion";
+		else
+			$notification->message = "a répondu à une discussion dont vous etes abonné";
+		$notification->reponse_id = $reponse->id;
+		$notification->save();
+
+		foreach ($ticket->reponses()->distinct()->get(['utilisateur_id']) as $otherReponse) {
+			if (($otherReponse->utilisateur != $reponse->utilisateur) && ($otherReponse->utilisateur != $ticket->utilisateur)) {
+				$otherReponse->utilisateur->notifications()->attach($notification);
+			}
+		}
 
 		return Redirect::back()->withMessage('Réponse ajoutée avec succes');
 	}

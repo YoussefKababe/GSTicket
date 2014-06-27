@@ -88,6 +88,14 @@ class TicketsController extends \BaseController {
 	{
 		$ticket = Ticket::findOrFail($id);
 
+		$notifications = Auth::user()->notifications;
+
+		foreach ($notifications as $notification) {
+			if ($notification->reponse->ticket == $ticket) {
+		 		Auth::user()->notifications()->detach($notification);	
+			}
+		}
+		
 		return View::make('tickets.show', compact('ticket'));
 	}
 
