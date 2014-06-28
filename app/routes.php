@@ -13,6 +13,8 @@
 
 Route::get('/', 'HomeController@index');
 
+Route::post('/documents/upload', 'DocumentsController@upload');
+
 Route::resource('users', 'UtilisateursController');
 
 Route::resource('sessions', 'SessionsController');

@@ -16,6 +16,9 @@
 		{{ Form::textarea('message', null, ['placeholder' => 'Decrivez votre probleme...', 'class' => 'form-control', 'id' => 'summernote']) }}
 	</div>
 
+	<div class="dropzone" id="document-uploader">
+		
+	</div>
 </div>
 
 <div class="col-xs-4">
@@ -55,6 +58,19 @@
       $('.chosen-select').chosen({
       	no_results_text: 'Acun prodit avec ce nom: '
       });
+
+      Dropzone.options.documentUploader = {
+			  paramName: "file",
+			  url: "/documents/upload",
+			  addRemoveLinks: true,
+			  dictDefaultMessage: 'Déposez des fichiers ici pour les télécharger',
+
+			  init: function() {
+			  	this.on('success', function(file, response) {
+			  		$('form').append('<input hidden type="text" name="file[]" value="' + response + '" />');
+			  	})
+			  }
+			};
     });
   </script>
 @stop

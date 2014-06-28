@@ -12,6 +12,10 @@
 		  </div>
 		  <div class="panel-body">
 		    {{ $ticket->message }}
+
+		    @foreach ($ticket->documents as $document)
+					<a href="/uploads/documents/{{ $document->nomDocument }}" target="_blank">Document</a><br>
+		    @endforeach
 		  </div>
 		</div>
 

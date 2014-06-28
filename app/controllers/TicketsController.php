@@ -69,12 +69,18 @@ class TicketsController extends \BaseController {
 		$produit = Produit::where('nomProduit', '=', Input::get('produit'))->first();
 		
 		$ticket = new Ticket;
-		$ticket->fill(Input::except('produit', 'message'));
+		$ticket->fill(Input::except('produit', 'message', 'file'));
 		$ticket->etat = 'Ouvert';
 		$ticket->message = Markdown::render(Input::get('message'));
 		$ticket->utilisateur_id = Auth::user()->id;
 
 		$produit->tickets()->save($ticket);
+
+		foreach (Input::get('file') as $file) {
+			$document = new Document;
+			$document->nomDocument = $file;
+			$ticket->documents()->save($document);
+		}
 
 		return Redirect::route('tickets.index');
 	}

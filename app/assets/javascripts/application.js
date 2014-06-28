@@ -16,4 +16,5 @@
 //= require moment
 //= require summernote
 //= require chosen
+//= require dropzone
 //= require_tree .
