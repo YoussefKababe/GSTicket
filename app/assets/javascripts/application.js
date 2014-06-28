@@ -15,4 +15,5 @@
 //= require bootstrap
 //= require moment
 //= require summernote
+//= require chosen
 //= require_tree .

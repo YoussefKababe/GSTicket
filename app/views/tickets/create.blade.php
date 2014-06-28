@@ -1,27 +1,60 @@
-{{ Form::open(['action' => 'TicketsController@store']) }}
+@extends('layouts.default')
 
-	<p>
-		{{ Form::label('produit', 'Produit:') }}
-		{{ Form::select('produit', $produits) }}
-	</p>
+@section('content')
 
-	<p>
-		{{ Form::label('sujet', 'Sujet:') }}
-		{{ Form::text('sujet') }}
-	</p>
+<div class="col-xs-12">
+	<h1>Ouvrire une nouvelle discussion</h1>
+</div>
 
-	<p>
-		{{ Form::label('message', 'Message:') }}
-		{{ Form::textarea('message') }}
-	</p>
+{{ Form::open(['action' => 'TicketsController@store', 'role' => 'form']) }}
+<div class="col-xs-8">
+	<div class="form-group">
+		{{ Form::text('sujet', null, ['class' => 'form-control', 'placeholder' => 'Sujet']) }}
+	</div>
 
-	<p>
-		{{ Form::label('priorite', 'Priorité:') }}
-		{{ Form::select('priorite', ['Normal' => 'Normal', 'Urgent' => 'Urgent', 'Critique' => 'Critique'])}}
-	</p>
+	<div class="form-group">
+		{{ Form::textarea('message', null, ['placeholder' => 'Decrivez votre probleme...', 'class' => 'form-control', 'id' => 'summernote']) }}
+	</div>
 
-	<p>
-		{{ Form::submit('Creer') }}
-	</p>
+</div>
 
+<div class="col-xs-4">
+	<div class="form-group">
+		{{ Form::select('produit', $produits, null, ['class' => 'form-control chosen-select', 'data-placeholder' => 'Produit']) }}
+	</div>
+
+	<div class="form-group">
+		{{ Form::select('priorite', ['' => 'Priorité', 'Normal' => 'Normal', 'Urgent' => 'Urgent', 'Critique' => 'Critique'], Input::get('priorite'), ['class' => 'form-control'])}}
+	</div>
+
+	<div class="form-group">
+		{{ Form::submit('Envoyer', ['class' => 'btn btn-info']) }}
+	</div>
+</div>	
 {{ Form::close() }}
+
+@stop
+
+@section('scripts')
+	<script>
+    $(function() {
+      $('#summernote').summernote({
+      	height: 150,
+      	toolbar: [
+      		['style', ['style']],
+      		['style', ['bold', 'italic', 'underline', 'strikethrough']],
+      		['fontsize', ['fontsize']],
+      		['color', ['color']],
+      		['para', ['ul', 'ol', 'paragraph']],
+      		['table', ['table']],
+      		['insert', ['link', 'video', 'hr']],
+      		['misc', ['fullscreen']],
+      	]
+      });
+
+      $('.chosen-select').chosen({
+      	no_results_text: 'Acun prodit avec ce nom: '
+      });
+    });
+  </script>
+@stop

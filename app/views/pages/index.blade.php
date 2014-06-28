@@ -12,7 +12,7 @@
       <a href="{{ route('tickets.index') }}" class="btn btn-info btn-lg" role="button">
         Discussions recentes <i class="glyphicon glyphicon-list-alt pull-right"></i>
       </a>
-      <a href="#" class="btn btn-info btn-lg" role="button">
+      <a href="{{ route('tickets.create') }}" class="btn btn-info btn-lg" role="button">
         Ouvrir une nouvelle discussion <i class="glyphicon glyphicon-pencil pull-right"></i>
       </a>
     </div>

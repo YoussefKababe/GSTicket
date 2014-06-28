@@ -13,5 +13,6 @@
  *= require font-awesome
  *= require summernote
  *= require jquery.Jcrop
+ *= require chosen
  *= require_tree .
  */

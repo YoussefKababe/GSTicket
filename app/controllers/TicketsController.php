@@ -48,6 +48,7 @@ class TicketsController extends \BaseController {
 	public function create()
 	{
 		$produits = Auth::user()->produits()->lists('nomProduit', 'nomProduit');
+		$produits[''] = '';
 		return View::make('tickets.create', compact('produits'));
 	}
 
@@ -86,7 +87,7 @@ class TicketsController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		$ticket = Ticket::findOrFail($id);
+		$ticket = Ticket::find($id);
 
 		$notifications = Auth::user()->notifications;
 
