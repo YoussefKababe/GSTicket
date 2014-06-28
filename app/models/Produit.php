@@ -15,9 +15,9 @@ class Produit extends \Eloquent {
 		return $this->hasMany('Ticket');
 	}
 
-	public function utilisateurs()
+	public function utilisateur()
 	{
-		return $this->belongsToMany('Utilisateur');
+		return $this->belongsTo('Utilisateur');
 	}
 
 }

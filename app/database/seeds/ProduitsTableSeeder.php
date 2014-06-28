@@ -16,14 +16,6 @@ class ProduitsTableSeeder extends Seeder {
 				'description' => $faker->sentence($nbWords = 6)
 			]);
 		}
-
-		DB::table('produit_utilisateur')->insert([
-			['utilisateur_id' => '4', 'produit_id' => '2'],
-			['utilisateur_id' => '4', 'produit_id' => '10'],
-			['utilisateur_id' => '6', 'produit_id' => '2'],
-			['utilisateur_id' => '6', 'produit_id' => '10'],
-			['utilisateur_id' => '6', 'produit_id' => '5']
-		]);
 	}
 
 }

@@ -4,7 +4,10 @@ class Ticket extends \Eloquent {
 
 	// Add your validation rules here
 	public static $rules = [
-		// 'title' => 'required'
+		'sujet' => 'required',
+		'message' => 'required',
+		'priorite' => 'required|in:Urgent,Normal,Critique',
+		'produit' => 'required|exists:produits,nomProduit'
 	];
 
 	// Don't forget to fill this array

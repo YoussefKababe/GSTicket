@@ -35,6 +35,15 @@
 		  		<button type="submit" class="btn btn-default">
 		  			<i class="fa fa-reply"></i> Repondre
 		  		</button>
+
+		  		@if (Auth::user()->role_id == 1)
+			  		<a id="close-ticket" data-url="{{ action('TicketsController@close', $ticket->id) }}" class="btn btn-danger pull-right btn-close">
+			  			<i class="fa fa-times"></i> Fermer
+			  		</a>
+			  		<a class="btn btn-info pull-right">
+			  			<i class="fa fa-paper-plane"></i> Passer au partenaire
+			  		</a>
+			  	@endif
 			  </div>
 
 		  {{ Form::close() }}
@@ -80,6 +89,16 @@
       		['insert', ['link', 'video', 'hr']],
       		['misc', ['fullscreen']],
       	]
+      });
+
+      $('#close-ticket').click(function() {
+      	$.ajax({
+      		url: $(this).data('url'),
+      		type: 'PUT',
+      		success: function(reponse) {
+      			alert('Ticket fermé');
+      		}
+      	});
       });
     });
   </script>

@@ -47,7 +47,7 @@ class TicketsController extends \BaseController {
 	 */
 	public function create()
 	{
-		$produits = Auth::user()->produits()->lists('nomProduit', 'nomProduit');
+		$produits = Produit::lists('nomProduit', 'nomProduit');
 		$produits[''] = '';
 		return View::make('tickets.create', compact('produits'));
 	}
@@ -76,11 +76,12 @@ class TicketsController extends \BaseController {
 
 		$produit->tickets()->save($ticket);
 
-		foreach (Input::get('file') as $file) {
-			$document = new Document;
-			$document->nomDocument = $file;
-			$ticket->documents()->save($document);
-		}
+		if (Input::hasFIle('file'))
+			foreach (Input::get('file') as $file) {
+				$document = new Document;
+				$document->nomDocument = $file;
+				$ticket->documents()->save($document);
+			}
 
 		return Redirect::route('tickets.index');
 	}
@@ -139,6 +140,15 @@ class TicketsController extends \BaseController {
 		$ticket->update($data);
 
 		return Redirect::route('tickets.index');
+	}
+
+	public function close($id) {
+		$ticket = Ticket::findOrFail($id);
+
+		$ticket->etat = "Résolu";
+		$ticket->save();
+
+		Response::json('success');
 	}
 
 	/**

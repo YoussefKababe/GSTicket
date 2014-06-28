@@ -2,7 +2,7 @@
 
 @section('content')
 	
-	<div class="search-filter">
+	<div class="search-filter pull-left">
 		<div class="filter">
 			{{ Form::open(['action' => 'TicketsController@index', 'method' => 'get', 'class' => 'form-inline', 'role' => 'form']) }}
 
@@ -38,6 +38,8 @@
 			{{ Form::close() }}
 		</div>
 	</div>
+
+	<a href="{{ route('tickets.create') }}" class="btn btn-default pull-right">Ouvrire une nouvelle discussion</a>
 
 	<table class="table table-hover">
 		<thead>
