@@ -35,7 +35,8 @@ class TicketsController extends \BaseController {
 		$tickets = Ticket::where('priorite', 'like', $priorite, 'and')
 								->where('etat', 'like', $etat, 'and')
 								->where('sujet', 'like', $query)
-								->get()->reverse();
+								->orderBy('created_at', 'desc')
+								->get();
 
 		return View::make('tickets.index', compact('tickets'));	
 	}
@@ -76,7 +77,7 @@ class TicketsController extends \BaseController {
 
 		$produit->tickets()->save($ticket);
 
-		if (Input::hasFIle('file'))
+		if (Input::has('file'))
 			foreach (Input::get('file') as $file) {
 				$document = new Document;
 				$document->nomDocument = $file;

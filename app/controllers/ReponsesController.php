@@ -70,7 +70,13 @@ class ReponsesController extends \BaseController {
 			}
 		}
 
-		return Redirect::back()->withMessage('Réponse ajoutée avec succes');
+		$data['userName'] = $reponse->utilisateur->nomUtilisateur;
+		$data['userRole'] = $reponse->utilisateur->role->id;
+		$data['userImg'] = $reponse->utilisateur->photo;
+		$data['message'] = $reponse->message;
+		$data['date'] = $reponse->created_at;
+
+		return $data;
 	}
 
 	/**
