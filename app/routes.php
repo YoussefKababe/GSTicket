@@ -25,6 +25,7 @@ Route::group(['before' => 'auth'], function()
 	Route::post('/documents/upload', 'DocumentsController@upload');
 	Route::post('/documents/uploadTicketImage', 'DocumentsController@uploadTicketImage');
 	Route::put('/tickets/{tickets}/close', 'TicketsController@close');
+	Route::put('/tickets/{tickets}/reopen', 'TicketsController@reopen');
 	Route::resource('tickets', 'TicketsController');
 	Route::get('logout', ['as' => 'sessions.logout', 'uses' => 'SessionsController@destroy']);
 });

@@ -9,6 +9,15 @@
 				</a>
 		    <h3 class="panel-title">{{ $ticket->sujet }}</h3>
 		    <p><small>Par: <strong>{{ link_to_route('user.show', $ticket->utilisateur->nomUtilisateur, $ticket->utilisateur->nomUtilisateur) }}</strong> - <span class="time">{{ $ticket->created_at }}</span></small></p>
+		    @if ($ticket->etat == 'Ouvert')
+			    <span class="col-xs-3 label label-success ticket-status">
+			  @elseif ($ticket->etat == 'Soumis au partenaire')
+			  	<span class="col-xs-3 label label-info ticket-status">
+			  @elseif ($ticket->etat == 'Résolu')
+					<span class="col-xs-3 label label-default ticket-status">
+				@endif
+					{{ $ticket->etat }}
+				</span>
 		  </div>
 		  <div class="panel-body">
 		    {{ $ticket->message }}
@@ -17,39 +26,27 @@
 					<a href="/uploads/documents/{{ $document->nomDocument }}" target="_blank">Document</a><br>
 		    @endforeach
 		  </div>
-		</div>
 
-		<div class="panel panel-default postreponse">
-		  <div class="panel-heading">
-		    <h3 class="panel-title">Nouvelle reponse</h3>
-		  </div>
-		   
-		  {{ Form::open(['id' => 'ticket-response', 'action' => ['ReponsesController@store', 'id' => $ticket->id], 'role' => 'form']) }}
-			
-				<div class="panel-body">
-					{{ Form::textarea('message', null, ['placeholder' => 'Ecrire une reponse...', 'class' => 'form-control', 'id' => 'summernote']) }}
-			
-		  	</div>
+		  <div class="panel-footer">
+	  		<button id="scroll-to-respond" type="submit" class="btn btn-default">
+	  			<i class="fa fa-reply"></i> Repondre
+	  		</button>
 
-		  	<div class="panel-footer">
-		  		<button type="submit" class="btn btn-default">
-		  			<i class="fa fa-reply"></i> Repondre
-		  		</button>
-
-		  		@if (Auth::user()->role_id == 1)
-			  		<a id="close-ticket" data-url="{{ action('TicketsController@close', $ticket->id) }}" class="btn btn-danger pull-right btn-close">
+	  		@if (Auth::user()->role_id == 1)
+			  		<a <?php if ($ticket->etat == 'Résolu') echo 'style="display:none"' ?> id="close-ticket" data-url="{{ action('TicketsController@close', $ticket->id) }}" class="btn btn-danger pull-right btn-close">
 			  			<i class="fa fa-times"></i> Fermer
 			  		</a>
-			  		<a class="btn btn-info pull-right">
+			  		<a <?php if ($ticket->etat == 'Soumis au partenaire' || $ticket->etat == 'Résolu') echo 'style="display:none"' ?> id="submit-ticket" class="btn btn-info pull-right">
 			  			<i class="fa fa-paper-plane"></i> Passer au partenaire
 			  		</a>
-			  	@endif
-			  </div>
-
-		  {{ Form::close() }}
+			  		<a <?php if ($ticket->etat == 'Ouvert') echo 'style="display:none"' ?> id="reopen-ticket" data-url="{{ action('TicketsController@reopen', $ticket->id) }}" class="btn btn-success pull-right btn-close">
+			  			<i class="fa fa-undo"></i> Réouvrir
+			  		</a>
+		  	@endif
+		  </div>
 		</div>
 
-		@foreach ($ticket->reponses()->orderBy('created_at', 'desc')->get() as $reponse)
+		@foreach ($ticket->reponses()->orderBy('created_at')->get() as $reponse)
 			<div class="panel panel-default postedreponse">
 			  <div class="panel-heading">
 			  	<div class="author-info col-xs-9">
@@ -70,6 +67,27 @@
 			  </div>
 			</div>
 		@endforeach
+
+		<div class="panel panel-default postreponse">
+		  <div class="panel-heading">
+		    <h3 class="panel-title">Nouvelle reponse</h3>
+		  </div>
+		   
+		  {{ Form::open(['id' => 'ticket-response', 'action' => ['ReponsesController@store', 'id' => $ticket->id], 'role' => 'form']) }}
+			
+				<div class="panel-body">
+					{{ Form::textarea('message', null, ['placeholder' => 'Ecrire une reponse...', 'class' => 'form-control', 'id' => 'summernote']) }}
+			
+		  	</div>
+
+		  	<div class="panel-footer">
+		  		<button type="submit" class="btn btn-default">
+		  			<i class="fa fa-reply"></i> Repondre
+		  		</button>
+			  </div>
+
+		  {{ Form::close() }}
+		</div>
 	</div>
 
 	<div id="response-model" class="panel panel-default postedreponse" style="display:none">

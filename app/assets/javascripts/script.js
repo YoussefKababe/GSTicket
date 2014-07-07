@@ -35,13 +35,36 @@ $(function () {
   });
 
   $('#close-ticket').click(function() {
-  	$.ajax({
-  		url: $(this).data('url'),
-  		type: 'PUT',
-  		success: function(response) {
-  			alert('Ticket fermé');
-  		}
-  	});
+  	if (confirm('Voulez-vous vraiment fermer cette discussion?'))
+	  	$.ajax({
+	  		url: $(this).data('url'),
+	  		type: 'PUT',
+	  		success: function(response) {
+	  			$('.ticketpanel').find('.ticket-status').html('Résolu').removeClass('label-success').addClass('label-default');
+	  			$('#submit-ticket').hide();
+	  			$('#close-ticket').hide();
+	  			$('#reopen-ticket').show();
+	  		}
+	  	});
+  });
+
+  $('#reopen-ticket').click(function() {
+  	if (confirm('Voulez-vous vraiment réouvrir cette discussion?'))
+	  	$.ajax({
+	  		url: $(this).data('url'),
+	  		type: 'PUT',
+	  		success: function(response) {
+	  			$('.ticketpanel').find('.ticket-status').html('Ouvert').removeClass('label-default').addClass('label-success');
+	  			$('#submit-ticket').show();
+	  			$('#close-ticket').show();
+	  			$('#reopen-ticket').hide();
+	  		}
+	  	});
+  });
+
+  $('#scroll-to-respond').click(function() {
+  	$("body").animate({scrollTop: $('.postreponse').position().top});
+  	console.log('must scroll');
   });
 
   $('.chosen-select').chosen({
@@ -97,7 +120,7 @@ $(function () {
 				$('#ticket-response')[0].reset();
 				$('#summernote').code('<p><br></p>');
 
-				$('.postreponse').after(reponse);
+				$('.postreponse').before(reponse);
 
 				$(reponse).fadeIn("slow");
 			}

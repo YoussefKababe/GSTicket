@@ -84,7 +84,7 @@ class TicketsController extends \BaseController {
 				$ticket->documents()->save($document);
 			}
 
-		return Redirect::route('tickets.index');
+		return Redirect::route('tickets.show', $ticket->id);
 	}
 
 	/**
@@ -147,6 +147,15 @@ class TicketsController extends \BaseController {
 		$ticket = Ticket::findOrFail($id);
 
 		$ticket->etat = "Résolu";
+		$ticket->save();
+
+		Response::json('success');
+	}
+
+	public function reopen($id) {
+		$ticket = Ticket::findOrFail($id);
+
+		$ticket->etat = "Ouvert";
 		$ticket->save();
 
 		Response::json('success');
