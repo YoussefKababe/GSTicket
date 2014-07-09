@@ -38,6 +38,16 @@ Route::filter('auth', function()
 	if (Auth::guest()) return Redirect::guest('login');
 });
 
+Route::filter('admin', function() {
+	if (Auth::user()->role->role != 'admin')
+		App::abort(404);
+});
+
+Route::filter('adminOrPartner', function() {
+	if (Auth::user()->role->role != 'partenaire' && Auth::user()->role->role != 'admin')
+		App::abort(404);
+});
+
 
 Route::filter('auth.basic', function()
 {

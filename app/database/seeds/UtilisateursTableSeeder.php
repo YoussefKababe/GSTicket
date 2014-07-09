@@ -1,13 +1,12 @@
 <?php
 
 // Composer: "fzaninotto/faker": "v1.3.0"
-use Faker\Factory as Faker;
+// use Faker\Factory as Faker;
 
 class UtilisateursTableSeeder extends Seeder {
 
 	public function run()
 	{
-		$faker = Faker::create();
 
 		Utilisateur::create([
 			'nom' => 'Kababe',
@@ -29,28 +28,45 @@ class UtilisateursTableSeeder extends Seeder {
 			'role_id' => '1'
 		]);
 
-		foreach(range(1, 10) as $index)
-		{
-			Utilisateur::create([
-				'nom' => $faker->lastName,
-				'prenom' => $faker->firstName,
-				'email' => $faker->email,
-				'nomUtilisateur' => $faker->userName,
-				'photo' => 'default.png',
-				'motDePasse' => Hash::make('123456'),
-				'role_id' => '2'
-			]);
+		Utilisateur::create([
+			'nom' => 'Raki',
+			'prenom' => 'Abderrahmane',
+			'email' => 'abderrahmane.raki@gmail.com',
+			'photo' => '0BYN2fFF2PoShZcTcAR60PbUJ8W3EsDwqrLFEHNy.jpg',
+			'nomUtilisateur' => 'AbderrahmaneRaki',
+			'motDePasse' => Hash::make('123456'),
+			'role_id' => '2'
+		]);
 
-			Utilisateur::create([
-				'nom' => $faker->lastName,
-				'prenom' => $faker->firstName,
-				'email' => $faker->email,
-				'nomUtilisateur' => $faker->userName,
-				'photo' => 'default.png',
-				'motDePasse' => Hash::make('123456'),
-				'role_id' => '3'
-			]);
-		}
+		Utilisateur::create([
+			'nom' => 'Moumou',
+			'prenom' => 'Kawtar',
+			'email' => 'kawtar.moumou@gmail.com',
+			'photo' => 'MLEDf1AQGKXR6c9AAKgJSUee0DdLgilbcLnVK1B4.jpg',
+			'nomUtilisateur' => 'KawtarMoumou',
+			'motDePasse' => Hash::make('123456'),
+			'role_id' => '2'
+		]);
+
+		Utilisateur::create([
+			'nom' => 'Mohamed',
+			'prenom' => 'Berbich',
+			'email' => 'mohamed.berbich@gmail.com',
+			'photo' => '4rDIDVQlp8zAbYMANNXFW2PladhWGdfcwx00pY2X.jpg',
+			'nomUtilisateur' => 'MohamedBerbich',
+			'motDePasse' => Hash::make('123456'),
+			'role_id' => '3'
+		]);
+
+		Utilisateur::create([
+			'nom' => 'Tahiri',
+			'prenom' => 'Amine',
+			'email' => 'amine.tahiri@gmail.com',
+			'photo' => 'default.png',
+			'nomUtilisateur' => 'AmineTahiri',
+			'motDePasse' => Hash::make('123456'),
+			'role_id' => '3'
+		]);		
 	}
 
 }

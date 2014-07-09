@@ -10,27 +10,9 @@ class TicketsController extends \BaseController {
 	public function index()
 	{
 		$tickets = array();
-
-		// $produits = Auth::user()->produits()->has('tickets')->get();
-
-		// if (Auth::user()->role->role == "client")
-		// 	foreach ($produits as $produit) {
-		// 		foreach ($produit->tickets()->where('utilisateur_id', '=', Auth::user()->id)->get() as $ticket) {
-		// 			array_push($tickets, $ticket);
-		// 		}
-		// 	}
-		// elseif (Auth::user()->role->role == "partenaire")
-		// 	foreach ($produits as $produit) {
-		// 		foreach ($produit->tickets as $ticket) {
-		// 			array_push($tickets, $ticket);
-		// 		}
-		// 	}
-		// else
-		// 	$tickets = Ticket::all();
-
-		$priorite = Input::get('priorite') ? Input::get('priorite') : '%';
-		$etat = Input::get('etat') ? Input::get('etat') : '%';
-		$query = Input::get('q') ? '%' . Input::get('q') . '%' : '%';
+		$priorite = Input::has('priorite') ? Input::get('priorite') : '%';
+		$etat = Input::has('etat') ? Input::get('etat') : '%';
+		$query = Input::has('q') ? '%' . Input::get('q') . '%' : '%';
 
 		$tickets = Ticket::where('priorite', 'like', $priorite, 'and')
 								->where('etat', 'like', $etat, 'and')
@@ -77,13 +59,15 @@ class TicketsController extends \BaseController {
 
 		$produit->tickets()->save($ticket);
 
-		if (Input::has('file'))
-			foreach (Input::get('file') as $file) {
+		if (Input::has('file')) {
+			$fileName = Input::get('fileName');
+			foreach (Input::get('file') as $i => $file) {
 				$document = new Document;
 				$document->nomDocument = $file;
+				$document->nomDocumentOrigin = $fileName[$i];
 				$ticket->documents()->save($document);
 			}
-
+		}
 		return Redirect::route('tickets.show', $ticket->id);
 	}
 
@@ -100,8 +84,15 @@ class TicketsController extends \BaseController {
 		$notifications = Auth::user()->notifications;
 
 		foreach ($notifications as $notification) {
-			if ($notification->reponse->ticket == $ticket) {
-		 		Auth::user()->notifications()->detach($notification);	
+			if ($notification->reponse) {
+				if ($notification->reponse->ticket == $ticket) {
+			 		Auth::user()->notifications()->detach($notification);	
+				}
+			}
+			else {
+				if ($notification->ticket == $ticket) {
+					$notification->delete();
+				}
 			}
 		}
 		
@@ -157,6 +148,21 @@ class TicketsController extends \BaseController {
 
 		$ticket->etat = "Ouvert";
 		$ticket->save();
+
+		Response::json('success');
+	}
+
+	public function sendToPartner($id) {
+		$ticket = Ticket::findOrFail($id);
+
+		$ticket->etat = "Soumis au partenaire";
+		$ticket->save();
+
+		$notification = new Notification;
+		$notification->message = "a ouvert un ticket sur un de vos produits";
+		$notification->ticket_id = $ticket->id;
+
+		$ticket->produit->utilisateur->notifications()->save($notification);
 
 		Response::json('success');
 	}

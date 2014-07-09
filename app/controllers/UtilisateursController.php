@@ -12,8 +12,36 @@ class UtilisateursController extends \BaseController {
 	public function index()
 	{
 		$utilisateurs = Utilisateur::all();
-
 		return View::make('utilisateurs.index', compact('utilisateurs'));
+	}
+
+	public function partenaires() {
+		$utilisateurs = Utilisateur::partenaires()->where(function($qry) {
+											$query = Input::has('q') ? '%' . Input::get('q') . '%' : '%';
+											$qry->where('nomUtilisateur', 'like', $query)
+													->orWhere('prenom', 'like', $query)
+													->orWhere('nom', 'like', $query)
+													->orWhere('email','like', $query);
+										});
+
+		$utilisateurs = $utilisateurs->get();
+
+		return View::make('utilisateurs.index', compact('utilisateurs'))->withType('partenaires');
+	}
+
+	public function clients() {
+
+		$utilisateurs = Utilisateur::clients()->where(function($qry) {
+											$query = Input::has('q') ? '%' . Input::get('q') . '%' : '%';
+											$qry->where('nomUtilisateur', 'like', $query)
+													->orWhere('prenom', 'like', $query)
+													->orWhere('nom', 'like', $query)
+													->orWhere('email','like', $query);
+										});
+
+		$utilisateurs = $utilisateurs->get();
+
+		return View::make('utilisateurs.index', compact('utilisateurs'))->withType('clients');
 	}
 
 	/**

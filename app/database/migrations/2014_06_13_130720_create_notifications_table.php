@@ -16,8 +16,10 @@ class CreateNotificationsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('message');
-			$table->integer('reponse_id')->unsigned();
+			$table->integer('reponse_id')->unsigned()->nullable();
 			$table->foreign('reponse_id')->references('id')->on('reponses')->onDelete('cascade');
+			$table->integer('ticket_id')->unsigned();
+			$table->foreign('ticket_id')->references('id')->on('tickets')->onDelete('cascade');
 			$table->timestamps();
 		});
 	}

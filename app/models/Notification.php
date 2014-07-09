@@ -11,4 +11,9 @@ class Notification extends \Eloquent {
 	{
 		return $this->belongsTo('Reponse');
 	}
+
+	public function ticket()
+	{
+		return $this->belongsTo('Ticket');
+	}
 }

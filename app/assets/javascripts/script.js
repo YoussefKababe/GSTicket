@@ -40,10 +40,14 @@ $(function () {
 	  		url: $(this).data('url'),
 	  		type: 'PUT',
 	  		success: function(response) {
-	  			$('.ticketpanel').find('.ticket-status').html('Résolu').removeClass('label-success').addClass('label-default');
+	  			$('.ticketpanel').find('.ticket-status').html('Résolu').removeClass('label-success').removeClass('label-warning').addClass('label-default');
 	  			$('#submit-ticket').hide();
 	  			$('#close-ticket').hide();
 	  			$('#reopen-ticket').show();
+
+	  			$('.sidebar').find('.badge').html(function(e, html) {
+	  				return parseInt(html) - 1;
+	  			});
 	  		}
 	  	});
   });
@@ -58,8 +62,25 @@ $(function () {
 	  			$('#submit-ticket').show();
 	  			$('#close-ticket').show();
 	  			$('#reopen-ticket').hide();
+
+	  			$('.sidebar').find('.badge').html(function(e, html) {
+	  				return parseInt(html) + 1;
+	  			});
 	  		}
 	  	});
+  });
+
+
+  $('#submit-ticket').click(function() {
+  	if (confirm('Voulez-vous vraiment soumettre ce ticket au partenaire?'))
+  		$.ajax({
+  			url: $(this).data('url'),
+  			type: 'PUT',
+  			success: function(response) {
+  				$('.ticketpanel').find('.ticket-status').html('Soumis au partenaire').removeClass('label-success').addClass('label-warning');
+  				$('#submit-ticket').hide();
+  			}
+  		});
   });
 
   $('#scroll-to-respond').click(function() {
@@ -79,7 +100,8 @@ $(function () {
 
 	  init: function() {
 	  	this.on('success', function(file, response) {
-	  		$('form').append('<input hidden type="text" name="file[]" value="' + response.newName + '" data-original-name="' + response.originalName + '" />');
+	  		$('form').append('<input hidden type="text" name="file[]" value="' + response.newName + '"/>');
+	  		$('form').append('<input hidden type="text" name="fileName[]" value="' + response.originalName + '"/>');
 	  	});
 
 	  	this.on('')

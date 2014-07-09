@@ -1,9 +1,11 @@
 /bootstrap/compiled.php
 /vendor
-/public/uploads
+/public/uploads/*
 composer.phar
 composer.lock
 .env.*.php
 .env.php
 .DS_Store
 Thumbs.db
+
+!/public/uploads/userimg

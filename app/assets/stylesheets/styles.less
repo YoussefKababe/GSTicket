@@ -200,6 +200,7 @@ html.home-page {
 	.navbar {
 		background-color: #19AAD7;
 		border: none;
+		margin-bottom: 0;
 
 		.navbar-brand {
 			font-family: 'Droid Serif Bold';
@@ -281,6 +282,47 @@ html.home-page {
 		}
 	}
 
+	.main {
+		overflow: hidden;
+		padding: 0 48px;
+
+		.container {
+			margin-top: 80px;
+		}
+	}
+
+	.sidebar {
+		width: 48px;
+		height: 100%;
+		top: 50px;
+		position: fixed;
+		background-color: #282828;
+		overflow: hidden;
+		z-index: 10;
+		transition: all .5s ease;
+
+		&:hover {
+			width: 180px;
+		}
+
+		.nav-pills {
+			width: 180px;
+
+			i {
+				width: 30px;
+			}
+
+			a {
+				color: #fff;
+				border-radius: 0;
+
+				&:hover {
+					background-color: #6B6A6A;
+				}
+			}
+		}
+	}
+
 	.jumbotron {
 		overflow: hidden;
 		background-color: #fff;
@@ -326,6 +368,19 @@ html.home-page {
 
 			img {
 				max-width: 100%;
+			}
+
+			fieldset {
+				background-color: #f5f5f5;
+				overflow: hidden;
+				margin-top: 10px;
+
+				legend {
+					font-size: 14px;
+					font-weight: bold;
+					margin-bottom: 4px;
+					background-color: #f5f5f5;
+				}
 			}
 		}
 
@@ -461,6 +516,8 @@ html.home-page {
 	}
 
 	footer {
+		padding: 0 65px;
+
 		.container {
 			border-top: 1px solid #ebebeb;
 			padding: 10px 0;

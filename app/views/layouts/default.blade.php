@@ -6,7 +6,7 @@
   {{ stylesheet_link_tag() }}
 </head>
 <body>
-  <nav class="navbar navbar-default navbar-static-top" role="navigation">
+  <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
       <div class="navbar-header">
         <a class="navbar-brand" href="{{ url('/') }}">GSTicket</a>
@@ -29,12 +29,21 @@
               @else
                 @foreach (Auth::user()->notifications->reverse() as $notification)
                   <li>
-                    <a href="{{ route('tickets.show', ['id' => $notification->reponse->ticket->id]); }}">
-                      <img src="/uploads/userimg/{{ $notification->reponse->utilisateur->photo }}" alt="" class="img img-thumbnail pull-left">
-                      <strong>{{ $notification->reponse->utilisateur->nomUtilisateur }}</strong> {{ $notification->message }}:
-                      <p>{{ $notification->reponse->ticket->sujet }}</p>
-                      <small class="time">{{ $notification->created_at }}</small>
-                    </a>
+                    @if ($notification->reponse)
+                      <a href="{{ route('tickets.show', ['id' => $notification->reponse->ticket->id]); }}">
+                        <img src="/uploads/userimg/{{ $notification->reponse->utilisateur->photo }}" alt="" class="img img-thumbnail pull-left">
+                        <strong>{{ $notification->reponse->utilisateur->nomUtilisateur }}</strong> {{ $notification->message }}:
+                        <p>{{ $notification->reponse->ticket->sujet }}</p>
+                        <small class="time">{{ $notification->created_at }}</small>
+                      </a>
+                    @else
+                      <a href="{{ route('tickets.show', ['id' => $notification->ticket->id]); }}">
+                        <img src="/uploads/userimg/{{ $notification->ticket->utilisateur->photo }}" alt="" class="img img-thumbnail pull-left">
+                        <strong>{{ $notification->ticket->utilisateur->nomUtilisateur }}</strong> {{ $notification->message }}:
+                        <p>{{ $notification->ticket->produit->nomProduit }}</p>
+                        <small class="time">{{ $notification->ticket->created_at }}</small>
+                      </a>
+                    @endif
                   </li>
                 @endforeach
               @endif
@@ -60,6 +69,19 @@
       </ul>
     </div>
   </nav>
+
+  @if (Auth::check())
+    @if (Auth::user()->role->role == "admin")
+      <div class="sidebar">
+        <ul class="nav nav-pills nav-stacked">
+          <li><a href="{{ route('tickets.index') }}"><i class="fa fa-file-o"></i> Tickets <span class="badge">{{ Ticket::where('etat', '!=', 'Résolu')->count() }}</span></a></li>        
+          <li><a href="{{ action('UtilisateursController@partenaires') }}"><i class="fa fa-users"></i> Partenaires</a></li>
+          <li><a href="{{ action('UtilisateursController@clients') }}"><i class="fa fa-user"></i> Clients</a></li>
+          <li><a href="{{ action('ProduitsController@index') }}"><i class="fa fa-shopping-cart"></i> Produits</a></li>
+        </ul>
+      </div>
+    @endif
+  @endif
 
   <section class="main">
     <div class="container">

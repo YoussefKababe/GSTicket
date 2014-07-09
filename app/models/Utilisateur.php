@@ -118,4 +118,12 @@ class Utilisateur extends \Eloquent implements UserInterface, RemindableInterfac
 		return $this->belongsToMany('Notification');
 	}
 
+	public function scopePartenaires($query) {
+		return $query->where('role_id', '=', '2');
+	}
+
+	public function scopeClients($query) {
+		return $query->where('role_id', '=', '3');
+	}
+
 }

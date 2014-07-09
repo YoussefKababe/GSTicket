@@ -33,4 +33,9 @@ class Ticket extends \Eloquent {
 		return $this->morphMany('Document', 'documentable');
 	}
 
+	public function notification()
+	{
+		return $this->hasOne('Notification');
+	}
+
 }

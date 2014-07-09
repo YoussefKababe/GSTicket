@@ -9,7 +9,13 @@ class ProduitsController extends \BaseController {
 	 */
 	public function index()
 	{
-		$produits = Produit::all();
+		$produits = Produit::where(function($qry) {
+									$query = Input::has('q') ? '%' . Input::get('q') . '%' : '%';
+									$qry->where('nomProduit', 'like', $query)
+											->orWhere('description', 'like', $query);
+								});
+
+		$produits = $produits->get();
 
 		return View::make('produits.index', compact('produits'));
 	}

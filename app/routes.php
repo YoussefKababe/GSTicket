@@ -24,8 +24,12 @@ Route::group(['before' => 'auth'], function()
 {
 	Route::post('/documents/upload', 'DocumentsController@upload');
 	Route::post('/documents/uploadTicketImage', 'DocumentsController@uploadTicketImage');
-	Route::put('/tickets/{tickets}/close', 'TicketsController@close');
-	Route::put('/tickets/{tickets}/reopen', 'TicketsController@reopen');
+	Route::put('/tickets/{tickets}/close', 'TicketsController@close')->before('adminOrPartner');
+	Route::put('/tickets/{tickets}/reopen', 'TicketsController@reopen')->before('adminOrPartner');
+	Route::put('/tickets/{tickets}/sendToPartner', 'TicketsController@sendToPartner')->before('admin');
+	Route::get('/partenaires', 'UtilisateursController@partenaires')->before('admin');
+	Route::get('/clients', 'UtilisateursController@clients')->before('admin');
+	Route::get('/produits', 'ProduitsController@index')->before('admin');
 	Route::resource('tickets', 'TicketsController');
 	Route::get('logout', ['as' => 'sessions.logout', 'uses' => 'SessionsController@destroy']);
 });

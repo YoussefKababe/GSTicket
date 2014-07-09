@@ -10,11 +10,11 @@
 		    <h3 class="panel-title">{{ $ticket->sujet }}</h3>
 		    <p><small>Par: <strong>{{ link_to_route('user.show', $ticket->utilisateur->nomUtilisateur, $ticket->utilisateur->nomUtilisateur) }}</strong> - <span class="time">{{ $ticket->created_at }}</span></small></p>
 		    @if ($ticket->etat == 'Ouvert')
-			    <span class="col-xs-3 label label-success ticket-status">
+			    <span class="label label-success ticket-status">
 			  @elseif ($ticket->etat == 'Soumis au partenaire')
-			  	<span class="col-xs-3 label label-info ticket-status">
+			  	<span class="label label-warning ticket-status">
 			  @elseif ($ticket->etat == 'Résolu')
-					<span class="col-xs-3 label label-default ticket-status">
+					<span class="label label-default ticket-status">
 				@endif
 					{{ $ticket->etat }}
 				</span>
@@ -22,9 +22,15 @@
 		  <div class="panel-body">
 		    {{ $ticket->message }}
 
-		    @foreach ($ticket->documents as $document)
-					<a href="/uploads/documents/{{ $document->nomDocument }}" target="_blank">Document</a><br>
-		    @endforeach
+
+				@if ($ticket->documents()->count() != 0)
+					<fieldset>
+						<legend>Pieces jointes</legend>
+				    @foreach ($ticket->documents as $document)
+							<i class="fa fa-paperclip"></i> <a href="/uploads/documents/{{ $document->nomDocument }}" target="_blank">{{ $document->nomDocumentOrigin }}</a><br>
+				    @endforeach
+			    </fieldset>
+		    @endif
 		  </div>
 
 		  <div class="panel-footer">
@@ -33,15 +39,22 @@
 	  		</button>
 
 	  		@if (Auth::user()->role_id == 1)
-			  		<a <?php if ($ticket->etat == 'Résolu') echo 'style="display:none"' ?> id="close-ticket" data-url="{{ action('TicketsController@close', $ticket->id) }}" class="btn btn-danger pull-right btn-close">
-			  			<i class="fa fa-times"></i> Fermer
-			  		</a>
-			  		<a <?php if ($ticket->etat == 'Soumis au partenaire' || $ticket->etat == 'Résolu') echo 'style="display:none"' ?> id="submit-ticket" class="btn btn-info pull-right">
-			  			<i class="fa fa-paper-plane"></i> Passer au partenaire
-			  		</a>
-			  		<a <?php if ($ticket->etat == 'Ouvert') echo 'style="display:none"' ?> id="reopen-ticket" data-url="{{ action('TicketsController@reopen', $ticket->id) }}" class="btn btn-success pull-right btn-close">
-			  			<i class="fa fa-undo"></i> Réouvrir
-			  		</a>
+		  		<a <?php if ($ticket->etat == 'Résolu') echo 'style="display:none"' ?> id="close-ticket" data-url="{{ action('TicketsController@close', $ticket->id) }}" class="btn btn-danger pull-right btn-close">
+		  			<i class="fa fa-times"></i> Fermer
+		  		</a>
+		  		<a <?php if ($ticket->etat == 'Soumis au partenaire' || $ticket->etat == 'Résolu') echo 'style="display:none"' ?> id="submit-ticket" data-url="{{ action('TicketsController@sendToPartner', $ticket->id) }}" class="btn btn-info pull-right">
+		  			<i class="fa fa-paper-plane"></i> Passer au partenaire
+		  		</a>
+		  		<a <?php if ($ticket->etat == 'Ouvert' || $ticket->etat == 'Soumis au partenaire') echo 'style="display:none"' ?> id="reopen-ticket" data-url="{{ action('TicketsController@reopen', $ticket->id) }}" class="btn btn-success pull-right btn-close">
+		  			<i class="fa fa-undo"></i> Réouvrir
+		  		</a>
+			  @elseif (Auth::user()->role_id == 2)
+			  	<a <?php if ($ticket->etat == 'Résolu') echo 'style="display:none"' ?> id="close-ticket" data-url="{{ action('TicketsController@close', $ticket->id) }}" class="btn btn-danger pull-right btn-close">
+		  			<i class="fa fa-times"></i> Fermer
+		  		</a>
+		  		<a <?php if ($ticket->etat == 'Ouvert' || $ticket->etat == 'Soumis au partenaire') echo 'style="display:none"' ?> id="reopen-ticket" data-url="{{ action('TicketsController@reopen', $ticket->id) }}" class="btn btn-success pull-right btn-close">
+		  			<i class="fa fa-undo"></i> Réouvrir
+		  		</a>
 		  	@endif
 		  </div>
 		</div>

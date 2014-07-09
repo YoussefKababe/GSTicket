@@ -51,6 +51,7 @@ class ReponsesController extends \BaseController {
 			$notification = new Notification;
 			$notification->message = "a répondu à votre discussion";
 			$notification->reponse_id = $reponse->id;
+			$notification->ticket_id = $ticket->id;
 
 			$ticket->utilisateur->notifications()->save($notification);
 		}
@@ -62,6 +63,7 @@ class ReponsesController extends \BaseController {
 		else
 			$notification->message = "a répondu à une discussion dont vous etes abonné";
 		$notification->reponse_id = $reponse->id;
+		$notification->ticket_id = $ticket->id;
 		$notification->save();
 
 		foreach ($ticket->reponses()->distinct()->get(['utilisateur_id']) as $otherReponse) {
